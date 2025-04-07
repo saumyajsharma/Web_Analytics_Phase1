@@ -83,6 +83,26 @@ view: users {
   measure: count {
     type: count
   }
+  measure: Users {
+    type: number
+    sql: count(${TABLE}.userID) ;;
+  }
+  measure: LoggedIn_Users {
+    type: number
+    sql: count(${TABLE}.customerID) ;;
+  }
+  measure: Unique_Users {
+    type: count_distinct
+    sql: ${TABLE}.userID ;;
+  }
+  measure: New_Users {
+    type: count
+    filters: [new_user_flag: "yes"]
+  }
+  measure: Returning_Users {
+      type: count
+      filters: [new_user_flag: "no"]
+  }
 
 }
 

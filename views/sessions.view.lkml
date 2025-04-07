@@ -100,4 +100,48 @@ view: sessions {
   measure: count {
     type: count
   }
+  measure: Sessions {
+    type: number
+    sql: count(${TABLE}.sessionID);;
+  }
+  measure: Unique_Sessions {
+    type: count_distinct
+    sql: ${TABLE}.sessionID;;
+  }
+  measure: Avg_Session_Duration {
+    type: number
+    sql: round((${session_duration}/${Sessions})/60,2) ;;
+  }
+  measure: Sessions_Per_User{
+    type: number
+    sql: round((${Sessions}/count(${TABLE}.userID)),2) ;;
+  }
+  measure: Active_Users {
+    type: count_distinct
+    sql: ${TABLE}.userID ;;
+    filters: [session_id: "-NULL",session_date: "last 7 days"]
+  }
+  measure: Daily_Active_Users {
+    type: count_distinct
+    sql: ${TABLE}.userID ;;
+    filters: [session_id: "-NULL",session_date:"1 day ago for 1 day"]
+  }
+  measure: Weekly_Active_Users {
+    type: count_distinct
+    sql: ${TABLE}.userID ;;
+    filters: [session_id: "-NULL",session_date: "7 days ago for 7 days"]
+  }
+  measure: Monthly_Active_Users {
+    type: count_distinct
+    sql: ${TABLE}.userID ;;
+    filters: [session_id: "-NULL",session_date: "30 days ago for 30 days"]
+  }
+  measure: User_Stickiness {
+    type: number
+    sql: round((${Daily_Active_Users}/NULLIF(${Monthly_Active_Users}, 0)),2) ;;
+  }
+  measure: Engaged_Sessions {
+    type: count
+    filters: [engaged_session_flag: "1"]
+  }
 }
