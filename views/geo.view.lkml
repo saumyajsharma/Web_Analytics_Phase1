@@ -34,13 +34,11 @@ view: geo {
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
 
-  dimension_group: user_id {
-    type: time
-    timeframes: [raw, date, week, month, quarter, year]
-    convert_tz: no
-    datatype: date
+  dimension: user_id {
+    type: string
     sql: ${TABLE}.userID ;;
   }
+
   measure: count {
     type: count
   }

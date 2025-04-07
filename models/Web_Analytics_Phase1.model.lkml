@@ -92,9 +92,9 @@ explore: users {
   }
 
   # Join geo on geoID from user_data
-  # join: geo {
-  #   type: left_outer
-  #   sql_on: ${users.user_id} = ${geo.user_id} ;;
-  #   relationship: many_to_one
-  # }
+   join: geo {
+     type: left_outer
+     sql_on: ${users.user_id} = ${geo.user_id} ;;
+     relationship: many_to_one
+   }
 }

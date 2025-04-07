@@ -83,6 +83,7 @@ view: users {
   measure: count {
     type: count
   }
+
 }
 
 # The name of this view in Looker is "Users User Properties"
