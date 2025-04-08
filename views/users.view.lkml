@@ -88,8 +88,8 @@ view: users {
     sql: count(${TABLE}.userID) ;;
   }
   measure: LoggedIn_Users {
-    type: number
-    sql: count(${TABLE}.customerID) ;;
+    type: count_distinct
+    sql: ${TABLE}.customerID ;;
   }
   measure: Unique_Users {
     type: count_distinct
