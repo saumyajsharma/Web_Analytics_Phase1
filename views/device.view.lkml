@@ -50,6 +50,10 @@ view: device {
     type: string
     sql: ${TABLE}.userID ;;
   }
+  dimension: browser {
+    type: string
+    sql: ${TABLE}.browser ;;
+  }
   measure: count {
     type: count
   }

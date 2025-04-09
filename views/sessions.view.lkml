@@ -144,4 +144,8 @@ view: sessions {
     type: count
     filters: [engaged_session_flag: "1"]
   }
+  measure: Engaged_Sessions_Per_User {
+    type: number
+    sql: round((${Engaged_Sessions}/count( distinct ${TABLE}.userID)),2) ;;
+  }
 }

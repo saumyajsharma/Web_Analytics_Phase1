@@ -104,8 +104,8 @@ view: users {
       filters: [new_user_flag: "no"]
   }
   measure: Avg_Engagement_Time {
-    type: average
-    sql: ${TABLE}.engagement_time_sec ;;
+    type: number
+    sql: round(avg(${TABLE}.engagement_time_sec),2) ;;
   }
 
 }
