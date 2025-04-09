@@ -18,10 +18,17 @@ view: pages {
 
   dimension: landing_page {
     type: string
-    sql:   CASE WHEN ${TABLE}.pageviewID = (SELECT MIN(pageviewID) FROM pages WHERE sessionID = ${TABLE}.sessionID)
+    sql:   CASE WHEN ${TABLE}.pageviewID = (SELECT MIN(pageviewID) FROM `web_analytics.pages` WHERE sessionID = ${TABLE}.sessionID)
     THEN ${TABLE}.pageUrl
     ELSE NULL
     END ;;
+  }
+  dimension: exit_page {
+    type: string
+    sql:   CASE WHEN ${TABLE}.pageviewID = (SELECT MAX(pageviewID) FROM `web_analytics.pages` WHERE sessionID = ${TABLE}.sessionID)
+          THEN ${TABLE}.pageUrl
+          ELSE NULL
+          END ;;
   }
 
   dimension: page_content_type {
@@ -96,4 +103,11 @@ view: pages {
     type: count
     drill_fields: [page_hostname, page_name]
   }
+  measure: pageview_count {
+    type: number
+    sql: count(distinct(${TABLE}.pageUrl)) ;;
+  }
+
+
+
 }
