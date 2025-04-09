@@ -75,6 +75,18 @@ explore: sessions {
     sql_on: ${sessions.begin_timestamp_time} = ${time_dim.time_id} ;;
     relationship: many_to_one
   }
+  join: device {
+    type: left_outer
+    sql_on: ${sessions.user_id} = ${sessions.user_id} ;;
+    relationship: many_to_one
+  }
+
+  # Join geo on geoID from user_data
+  join: geo {
+    type: left_outer
+    sql_on: ${sessions.user_id} = ${sessions.user_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: date_dim {}
@@ -85,6 +97,7 @@ explore: users {
       sql: LEFT JOIN UNNEST(${users.user_properties}) as users__user_properties ;;
       relationship: one_to_many
     }
+
   join: device {
     type: left_outer
     sql_on: ${users.user_id} = ${device.user_id} ;;
