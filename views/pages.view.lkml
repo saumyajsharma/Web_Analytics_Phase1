@@ -18,7 +18,10 @@ view: pages {
 
   dimension: landing_page {
     type: string
-    sql: ${TABLE}.landingPage ;;
+    sql:   CASE WHEN ${TABLE}.pageviewID = (SELECT MIN(pageviewID) FROM pages WHERE sessionID = ${TABLE}.sessionID)
+    THEN ${TABLE}.pageUrl
+    ELSE NULL
+    END ;;
   }
 
   dimension: page_content_type {
@@ -84,6 +87,10 @@ view: pages {
   dimension: user_id {
     type: string
     sql: ${TABLE}.userID ;;
+  }
+  measure: first_page_view {
+    type: min
+    sql: ${TABLE}.pageviewID ;;
   }
   measure: count {
     type: count

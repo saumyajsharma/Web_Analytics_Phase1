@@ -110,11 +110,11 @@ view: sessions {
   }
   measure: Avg_Session_Duration {
     type: number
-    sql: round((${session_duration}/${Sessions})/60,2) ;;
+    sql: round((sum(${session_duration})/${Sessions})/60,2) ;;
   }
   measure: Sessions_Per_User{
     type: number
-    sql: round((${Sessions}/count(${TABLE}.userID)),2) ;;
+    sql: round((${Sessions}/count( distinct ${TABLE}.userID)),2) ;;
   }
   measure: Active_Users {
     type: count_distinct
