@@ -54,6 +54,10 @@ view: events {
     type: count
     drill_fields: [event_name]
   }
+  measure: Event_Count {
+    type: count_distinct
+    sql: ${TABLE}.eventID;;
+  }
 }
 
 # The name of this view in Looker is "Events Event Properties"
