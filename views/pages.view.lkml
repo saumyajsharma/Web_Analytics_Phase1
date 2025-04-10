@@ -107,6 +107,10 @@ view: pages {
     type: number
     sql: count(distinct(${TABLE}.pageUrl)) ;;
   }
+  measure: Avg_Page_Load_Time {
+    type: number
+    sql: round(avg(cast(${TABLE}.pageLoadTime as decimal)),2) ;;
+  }
 
 
 
