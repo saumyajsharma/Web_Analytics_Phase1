@@ -45,6 +45,10 @@ view: device {
     type: number
     sql: ${TABLE}.screenWidth ;;
   }
+  dimension: screen_resolution {
+    type: number
+    sql: CONCAT(${TABLE}.screenHeight,'*', ${TABLE}.screenWidth) ;;
+  }
 
   dimension: user_id {
     type: string
