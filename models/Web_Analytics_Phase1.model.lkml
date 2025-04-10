@@ -88,14 +88,14 @@ explore: users {
     }
 
   join: device {
-    type: left_outer
+    type: inner
     sql_on: ${users.user_id} = ${device.user_id} ;;
     relationship: many_to_one
   }
 
   # Join geo on geoID from user_data
    join: geo {
-     type: left_outer
+     type: inner
      sql_on: ${users.user_id} = ${geo.user_id} ;;
      relationship: many_to_one
    }
