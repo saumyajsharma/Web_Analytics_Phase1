@@ -4,6 +4,7 @@ connection: "cdip_sandbox_test"
 # include all the views
 include: "/views/**/*.view.lkml"
 
+
 # Datagroups define a caching policy for an Explore. To learn more,
 # use the Quick Help panel on the right to see documentation.
 
@@ -76,6 +77,12 @@ explore: sessions {
     relationship: many_to_one
   }
 
+  join: firstsession {
+    type: left_outer
+    sql_on: ${sessions.user_id} = ${firstsession.user_id} ;;
+    relationship: many_to_one
+  }
+
 }
 
 explore: date_dim {}
@@ -100,3 +107,5 @@ explore: users {
      relationship: many_to_one
    }
 }
+
+explore: firstsession {}

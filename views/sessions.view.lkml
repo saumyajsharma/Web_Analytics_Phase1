@@ -97,6 +97,21 @@ view: sessions {
     type: string
     sql: ${TABLE}.userId ;;
   }
+
+  dimension: Default_Channel_Group {
+    type: string
+    sql: CASE
+      WHEN LOWER(${source}) IN ('google', 'bing', 'yahoo') AND ${medium} = 'organic' THEN 'Organic Search'
+      WHEN LOWER(${source}) IN ('google', 'bing') AND ${medium} = 'cpc' THEN 'Paid Search'
+      WHEN LOWER(${source}) IN ('facebook', 'instagram', 'linkedin', 'twitter', 'tiktok') THEN 'Social'
+      WHEN LOWER(${source}) = 'direct' OR ${source} IS NULL THEN 'Direct'
+      WHEN LOWER(${medium}) = 'email' THEN 'Email'
+      WHEN LOWER(${medium}) = 'affiliate' THEN 'Affiliate'
+      WHEN LOWER(${medium}) = 'referral' THEN 'Referral'
+      ELSE 'Other'
+    END ;;
+  }
+
   measure: count {
     type: count
   }
