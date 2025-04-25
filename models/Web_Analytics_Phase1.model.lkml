@@ -3,6 +3,7 @@ connection: "cdip_sandbox_test"
 
 # include all the views
 include: "/views/**/*.view.lkml"
+include: "/models/test.dashboard.lookml"
 
 
 # Datagroups define a caching policy for an Explore. To learn more,
