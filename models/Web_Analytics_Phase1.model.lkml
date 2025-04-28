@@ -27,6 +27,8 @@ persist_with: Web_Analytics_Phase1_default_datagroup
 # Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
 # Each joined view also needs to define a primary key.
 
+
+
 explore: device {}
 
 explore: geo {}
@@ -40,6 +42,7 @@ explore: events {
       relationship: one_to_many
     }
 }
+
 
 explore: pages {}
 
@@ -88,25 +91,6 @@ explore: sessions {
 
 explore: date_dim {}
 
-explore: users {
-    join: users__user_properties {
-      view_label: "Users: User Properties"
-      sql: LEFT JOIN UNNEST(${users.user_properties}) as users__user_properties ;;
-      relationship: one_to_many
-    }
 
-  join: device {
-    type: inner
-    sql_on: ${users.user_id} = ${device.user_id} ;;
-    relationship: many_to_one
-  }
-
-  # Join geo on geoID from user_data
-   join: geo {
-     type: inner
-     sql_on: ${users.user_id} = ${geo.user_id} ;;
-     relationship: many_to_one
-   }
-}
 
 explore: firstsession {}
