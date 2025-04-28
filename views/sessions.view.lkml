@@ -149,10 +149,15 @@ view: sessions {
     type: number
     sql: count(${TABLE}.sessionID);;
   }
-  measure: Unique_Sessions {
-    type: count_distinct
-    sql: ${TABLE}.sessionID;;
+  measure: New_Users {
+    type: count
+    filters: [new_user_flag: "Yes"]
   }
+  measure: Returning_Users {
+    type: count
+    filters: [new_user_flag: "No"]
+  }
+
   measure: Avg_Session_Duration {
     type: number
     sql: round((sum(${session_duration})/${Sessions})/60,2) ;;

@@ -1,7 +1,9 @@
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
 
 view: dynamicschema {
-  sql_table_name: `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema` ;;
+  derived_table: {
+    sql: SELECT * FROM `web_analytics.dynamicschema` WHERE event_ts IS NOT NULL ;;
+  }
 
   dimension: consents__purposes {
     hidden: yes
@@ -235,6 +237,14 @@ view: dynamicschema {
   measure: count {
     type: count
     drill_fields: [event_name, page__page_name, page__page_hostname, sessions.session_id, users.user_id]
+  }
+  measure: Sessions {
+    type: number
+    sql: count(${TABLE}.sessionID);;
+  }
+  measure: Users {
+    type: number
+    sql: count(${TABLE}.userID);;
   }
 }
 

@@ -83,14 +83,7 @@ view: users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
   }
-  measure: New_Users {
-    type: count
-    filters: [new_user_flag: "yes"]
-  }
-  measure: Returning_Users {
-    type: count
-    filters: [new_user_flag: "no"]
-  }
+
   measure: Avg_Engagement_Time {
     type: number
     sql: round(avg(${TABLE}.engagement_time_sec),2) ;;
