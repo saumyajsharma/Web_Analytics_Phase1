@@ -1,22 +1,5 @@
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
-explore: users {
-  hidden: yes
-    join: users__geo {
-      view_label: "Users: Geo"
-      sql: LEFT JOIN UNNEST(${users.geo}) as users__geo ;;
-      relationship: one_to_many
-    }
-    join: users__device {
-      view_label: "Users: Device"
-      sql: LEFT JOIN UNNEST(${users.device}) as users__device ;;
-      relationship: one_to_many
-    }
-    join: users__user_properties {
-      view_label: "Users: User Properties"
-      sql: LEFT JOIN UNNEST(${users.user_properties}) as users__user_properties ;;
-      relationship: one_to_many
-    }
-}
+
 view: users {
   sql_table_name: `uxlwqzc-cdip-sandbox-test.web_analytics.users` ;;
   drill_fields: [user_id]

@@ -1,27 +1,5 @@
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
-explore: dynamicschema {
-  hidden: yes
-    join: dynamicschema__user_properties {
-      view_label: "Dynamicschema: Userproperties"
-      sql: LEFT JOIN UNNEST(${dynamicschema.user_properties}) as dynamicschema__user_properties ;;
-      relationship: one_to_many
-    }
-    join: dynamicschema__event_properties {
-      view_label: "Dynamicschema: Eventproperties"
-      sql: LEFT JOIN UNNEST(${dynamicschema.event_properties}) as dynamicschema__event_properties ;;
-      relationship: one_to_many
-    }
-    join: dynamicschema__consents__vendors {
-      view_label: "Dynamicschema: Consents Vendors"
-      sql: LEFT JOIN UNNEST(${dynamicschema.consents__vendors}) as dynamicschema__consents__vendors ;;
-      relationship: one_to_many
-    }
-    join: dynamicschema__consents__purposes {
-      view_label: "Dynamicschema: Consents Purposes"
-      sql: LEFT JOIN UNNEST(${dynamicschema.consents__purposes}) as dynamicschema__consents__purposes ;;
-      relationship: one_to_many
-    }
-}
+
 view: dynamicschema {
   sql_table_name: `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema` ;;
 
