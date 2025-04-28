@@ -29,7 +29,6 @@ persist_with: Web_Analytics_Phase1_default_datagroup
 # Each joined view also needs to define a primary key.
 
 explore: dynamicschema {
-  hidden: yes
   join: dynamicschema__user_properties {
     view_label: "Dynamicschema: Userproperties"
     sql: LEFT JOIN UNNEST(${dynamicschema.user_properties}) as dynamicschema__user_properties ;;
