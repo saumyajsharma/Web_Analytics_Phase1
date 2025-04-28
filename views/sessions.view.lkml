@@ -149,6 +149,10 @@ view: sessions {
     type: number
     sql: count(${TABLE}.sessionID);;
   }
+  measure: Users {
+    type: number
+    sql: count(${TABLE}.userID) ;;
+  }
   measure: New_Users {
     type: count
     filters: [new_user_flag: "Yes"]
