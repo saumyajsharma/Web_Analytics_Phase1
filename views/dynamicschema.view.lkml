@@ -246,6 +246,19 @@ view: dynamicschema {
     type: number
     sql: count(${TABLE}.userID);;
   }
+  measure: Event_Count {
+    type: count_distinct
+    sql: ${TABLE}.eventID;;
+  }
+  measure: pageview_count {
+    type: number
+    sql: count(distinct(${TABLE}.pageUrl)) ;;
+  }
+  measure: Avg_Page_Load_Time {
+    type: number
+    sql: round(avg(cast(${TABLE}.pageLoadTime as decimal)),2) ;;
+  }
+
 }
 
 view: dynamicschema__user_properties {

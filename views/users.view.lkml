@@ -86,7 +86,7 @@ view: users {
 
   measure: Avg_Engagement_Time {
     type: number
-    sql: round(avg(${TABLE}.engagement_time_sec),2) ;;
+    sql: round(avg(${TABLE}.engagement_time_sec)/60,2) ;;
   }
 }
 

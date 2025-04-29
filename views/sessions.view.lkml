@@ -200,6 +200,6 @@ view: sessions {
   }
   measure: Engaged_Sessions_Per_User {
     type: number
-    sql: round((${Engaged_Sessions}/count( distinct ${TABLE}.userID)),2) ;;
+    sql: round((${Engaged_Sessions}/count(${TABLE}.userID)),2) ;;
   }
 }
