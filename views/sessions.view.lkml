@@ -151,14 +151,14 @@ view: sessions {
   }
   measure: Users {
     type: number
-    sql: count(${TABLE}.userID) ;;
+    sql: count_distinct(${TABLE}.userID) ;;
   }
   measure: New_Users {
-    type: count
+    type: count_distinct
     filters: [new_user_flag: "Yes"]
   }
   measure: Returning_Users {
-    type: count
+    type: count_distinct
     filters: [new_user_flag: "No"]
   }
 
