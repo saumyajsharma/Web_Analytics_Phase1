@@ -49,6 +49,11 @@ explore: dynamicschema {
     sql: LEFT JOIN UNNEST(${dynamicschema.consents__purposes}) as dynamicschema__consents__purposes ;;
     relationship: one_to_many
   }
+  join: sessions {
+    type: left_outer
+    sql_on: ${dynamicschema.session_id} = ${sessions.session_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: device {}
