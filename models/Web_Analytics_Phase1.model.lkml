@@ -54,6 +54,11 @@ explore: dynamicschema {
     sql_on: ${dynamicschema.session_id} = ${sessions.session_id} ;;
     relationship: many_to_one
   }
+  join: users {
+    type: left_outer
+    sql_on: ${dynamicschema.user_id} = ${users.user_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: device {}
