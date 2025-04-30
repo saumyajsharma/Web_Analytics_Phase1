@@ -91,6 +91,7 @@ view: sessions {
   }
   dimension: geo__country {
     type: string
+    map_layer_name: countries
     sql: ${TABLE}.geo.country ;;
     group_label: "Geo"
     group_item_label: "Country"
@@ -166,6 +167,13 @@ view: sessions {
     type: number
     sql: round((sum(${session_duration})/${Sessions})/60,2) ;;
   }
+  measure: Avg_Session_Duration_min_secs {
+    type: string
+    sql:  CONCAT(
+          FLOOR(AVG(${TABLE}.session_duration) / 60), ' min ',
+          CAST(MOD(CAST(AVG(${TABLE}.session_duration) AS INT64), 60) AS STRING), ' sec'
+        ) ;;
+  }
   measure: Sessions_Per_User{
     type: number
     sql: round((${Sessions}/count( distinct ${TABLE}.userID)),2) ;;
@@ -200,6 +208,6 @@ view: sessions {
   }
   measure: Engaged_Sessions_Per_User {
     type: number
-    sql: round((${Engaged_Sessions}/count(${TABLE}.userID)),2) ;;
+    sql: round((${Engaged_Sessions}/count(distinct ${TABLE}.userID)),2) ;;
   }
 }
