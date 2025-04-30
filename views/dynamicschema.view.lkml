@@ -256,8 +256,9 @@ view: dynamicschema {
   }
   measure: Avg_Page_Load_Time {
     type: number
-    sql: round(avg(cast(${TABLE}.pageLoadTime as decimal)),2) ;;
+    sql: round(avg(cast(${TABLE}.page.pageLoadTime as decimal)),2) ;;
   }
+
 
 }
 
@@ -311,6 +312,20 @@ view: dynamicschema__consents__vendors {
     type: string
     sql: ${TABLE}.name ;;
   }
+  measure: Users {
+    type: number
+    sql: count(${TABLE}.userID) ;;
+  }
+  measure: LoggedIn_Users {
+    type: count_distinct
+    sql: ${TABLE}.customerID ;;
+  }
+  measure: Unique_Users {
+    type: count_distinct
+    sql: ${TABLE}.userID ;;
+  }
+
+
 }
 
 view: dynamicschema__consents__purposes {
