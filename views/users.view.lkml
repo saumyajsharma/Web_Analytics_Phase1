@@ -85,9 +85,10 @@ view: users {
   }
   measure: Avg_Engagement_Time {
     type: number
-    sql:  round(AVG(${TABLE}.engagement_time_sec) / 60,2) ;;
+    sql:  round(avg(cast(${TABLE}.engagement_time_sec as decimal)) / 60,2) ;;
 
     }
+
 
   measure: Avg_Engagement_Time_min_secs {
     type: string
