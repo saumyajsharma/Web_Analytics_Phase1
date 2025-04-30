@@ -1,7 +1,7 @@
 - dashboard: web_analytics_phase1
   title: Web Analytics Phase 1
   layout: newspaper
-  description: 'A comprehensive dashboard for web analytics insights'
+  description: 'A comprehensive dashboard with advanced visualizations for web analytics insights'
   preferred_slug: V88vjf6g8RDwNZ5IbXObGK
   elements:
   - name: Navigation
@@ -146,7 +146,7 @@
     name: LoggedIn Users
     model: Web_Analytics_Phase1
     explore: sessions
-    type: single_value
+    type: gauge_visualization
     fields: [users.LoggedIn_Users]
     limit: 500
     column_limit: 50
@@ -219,8 +219,8 @@
       num_rows: 0
     hide_legend: false
     series_colors:
-      sessions.Unique_Sessions: "#005566"
-      users.Unique_Users: "#4a90e2"
+      sessions.Unique_Sessions: "#003087"
+      users.Unique_Users: "#007bff"
     series_types: {}
     reference_lines: []
     trend_lines: []
@@ -343,7 +343,7 @@
     name: User Breakdown
     model: Web_Analytics_Phase1
     explore: sessions
-    type: looker_donut
+    type: sankey_visualization
     fields: [unique_users, new_users]
     limit: 500
     column_limit: 50
@@ -385,9 +385,6 @@
     show_view_names: false
     show_value_labels: true
     font_size: '14'
-    value_labels: labels
-    label_type: labPer
-    inner_radius: 50
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -399,13 +396,13 @@
     conditional_formatting_include_nulls: false
     single_value_title: User Breakdown
     series_colors:
-      new_users: "#4a90e2"
-      returning_users: "#005566"
+      new_users: "#007bff"
+      returning_users: "#003087"
     hidden_pivots: {}
     defaults_version: 1
     note_state: collapsed
     note_display: hover
-    note_text: 'Breakdown of new vs. returning users'
+    note_text: 'Flow of new vs. returning users'
     listen:
       Location: sessions.location
       Date: sessions.begin_timestamp_date
@@ -457,7 +454,7 @@
         font_color: "#1a3c5e", color_application: {collection_id: mars-palette, palette_id: mars-palette-diverging-0,
           options: {steps: 5}}, bold: false, italic: false, strikethrough: false,
         fields: !!null ''}]
-    header_background_color: "#005566"
+    header_background_color: "#003087"
     header_font_color: "#ffffff"
     row_band_color: "#f8fafc"
     note_state: collapsed
@@ -481,7 +478,7 @@
     name: Country-Wise Users
     model: Web_Analytics_Phase1
     explore: dynamicschema
-    type: looker_column
+    type: custom_heatmap
     fields: [dynamicschema.Users, dynamicschema.geo__city]
     sorts: [dynamicschema.Users desc 0]
     limit: 10
@@ -514,7 +511,7 @@
     show_silhouette: false
     totals_color: "#808080"
     series_colors:
-      dynamicschema.Users: "#4a90e2"
+      dynamicschema.Users: "#007bff"
     limit_displayed_rows_values:
       show_hide: show
       first_last: first
@@ -522,11 +519,9 @@
     hidden_fields: []
     hidden_points_if_no: []
     series_labels: {}
-    is_3d: true
-    series_types: {}
     note_state: collapsed
     note_display: hover
-    note_text: 'User distribution by city'
+    note_text: 'User distribution by city (Heatmap)'
     listen: {}
     row: 15
     col: 0
