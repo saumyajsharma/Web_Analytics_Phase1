@@ -88,6 +88,13 @@ view: users {
     type: number
     sql: round(avg(${TABLE}.engagement_time_sec)/60,2) ;;
   }
+  measure: Avg_Engagement_Time_form {
+    type: string
+    sql: CONCAT(
+          FLOOR(AVG(${TABLE}.engagement_time_sec) / 60), ' min ',
+          CAST(MOD(CAST(AVG(${TABLE}.engagement_time_sec) AS INT64), 60) AS STRING), ' sec'
+        ) ;;
+  }
 }
 
 view: users__geo {
