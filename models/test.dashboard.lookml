@@ -78,7 +78,8 @@
           </div>
           <!-- Real-time with Submenu -->
           <div style="margin: 0;">
-            <a href="https://accenture360.cloud.looker.com/dashboards/325?region Oversized Link" style="padding: 12px 20px; text-decoration: none; color: #1a3c5e; font-size: 15px; border-radius: 6px; display: flex; align-items: center; transition: all 0.3s ease; font-weight: 500;">
+            <a href="https://accenture360.cloud.looker.com/dashboards/325?region={{ _filters['region'] | url_encode }}"
+               style="padding: 12px 20px; text-decoration: none; color: #1a3c5e; font-size: 15px; border-radius: 6px; display: flex; align-items: center; transition: all 0.3s ease; font-weight: 500;">
               <i class="fa fa-clock" style="margin-right: 10px;"></i> Real-time
             </a>
             <div style="padding-left: 30px; margin-top: 6px; display: flex; flex-direction: column; gap: 6px;">
@@ -156,11 +157,14 @@
     comparison_reverse_colors: false
     show_comparison_label: true
     enable_conditional_formatting: true
-    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e6f0fa",
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e8f4f8",
         font_color: "#1a3c5e", bold: true, italic: false, strikethrough: false, fields: !!null ''}]
     single_value_title: LoggedIn Users
     defaults_version: 1
     hidden_pivots: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Total number of logged-in users'
     listen:
       Location: sessions.location
       Date: sessions.begin_timestamp_date
@@ -172,7 +176,7 @@
     name: Daily Users Trend
     model: Web_Analytics_Phase1
     explore: sessions
-    type: looker_line
+    type: looker_area
     fields: [sessions.session_date, users.Users, sessions.Sessions]
     fill_fields: [sessions.session_date]
     sorts: [sessions.session_date desc]
@@ -201,7 +205,7 @@
     x_axis_scale: auto
     y_axis_combined: true
     show_null_points: true
-    interpolation: linear
+    interpolation: monotone
     y_axes: [{label: Count, orientation: left, series: [{axisId: sessions.Unique_Sessions,
             id: sessions.Unique_Sessions, name: Unique Sessions}, {axisId: users.Unique_Users,
             id: users.Unique_Users, name: Unique Users}], showLabels: true, showValues: true,
@@ -209,7 +213,7 @@
     x_axis_label: Date
     x_axis_zoom: true
     y_axis_zoom: true
-    limit_displayed_rows Caves:
+    limit_displayed_rows_values:
       show_hide: hide
       first_last: first
       num_rows: 0
@@ -217,6 +221,7 @@
     series_colors:
       sessions.Unique_Sessions: "#005566"
       users.Unique_Users: "#4a90e2"
+    series_types: {}
     reference_lines: []
     trend_lines: []
     custom_color_enabled: true
@@ -235,6 +240,9 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Trends of unique users and sessions over time'
     listen:
       Location: sessions.location
       Date: sessions.begin_timestamp_date
@@ -257,10 +265,13 @@
     comparison_reverse_colors: false
     show_comparison_label: true
     enable_conditional_formatting: true
-    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e6f0fa",
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e8f4f8",
         font_color: "#1a3c5e", bold: true, italic: false, strikethrough: false, fields: !!null ''}]
     single_value_title: Sessions Per User
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Average number of sessions per user'
     listen:
       Location: sessions.location
       Date: sessions.begin_timestamp_date
@@ -283,11 +294,14 @@
     comparison_reverse_colors: false
     show_comparison_label: true
     enable_conditional_formatting: true
-    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e6f0fa",
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e8f4f8",
         font_color: "#1a3c5e", bold: true, italic: false, strikethrough: false, fields: !!null ''}]
     single_value_title: Total Sessions
     defaults_version: 1
     hidden_pivots: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Total number of sessions'
     listen:
       Location: sessions.location
       Date: sessions.begin_timestamp_date
@@ -310,11 +324,14 @@
     comparison_reverse_colors: false
     show_comparison_label: true
     enable_conditional_formatting: true
-    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e6f0fa",
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e8f4f8",
         font_color: "#1a3c5e", bold: true, italic: false, strikethrough: false, fields: !!null ''}]
     single_value_title: Engaged Sessions
     defaults_version: 1
     hidden_pivots: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Total number of engaged sessions'
     listen:
       Location: sessions.location
       Date: sessions.begin_timestamp_date
@@ -326,7 +343,7 @@
     name: User Breakdown
     model: Web_Analytics_Phase1
     explore: sessions
-    type: looker_pie
+    type: looker_donut
     fields: [unique_users, new_users]
     limit: 500
     column_limit: 50
@@ -360,14 +377,17 @@
       _kind_hint: measure
       table_calculation: returning_users
       _type_hint: number
-    hidden_fields: []
+    hidden_fields: [unique_users]
     hidden_points_if_no: []
     series_labels:
       new_users: New Users
       returning_users: Returning Users
     show_view_names: false
     show_value_labels: true
-    font_size: '12'
+    font_size: '14'
+    value_labels: labels
+    label_type: labPer
+    inner_radius: 50
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -383,6 +403,9 @@
       returning_users: "#005566"
     hidden_pivots: {}
     defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Breakdown of new vs. returning users'
     listen:
       Location: sessions.location
       Date: sessions.begin_timestamp_date
@@ -430,38 +453,16 @@
       show_hide: hide
       first_last: first
       num_rows: 0
-    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#e6f0fa",
+    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#e8f4f8",
         font_color: "#1a3c5e", color_application: {collection_id: mars-palette, palette_id: mars-palette-diverging-0,
           options: {steps: 5}}, bold: false, italic: false, strikethrough: false,
         fields: !!null ''}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    x_axis_zoom: true
-    y_axis_zoom: true
-    defaults_version: 1
+    header_background_color: "#005566"
+    header_font_color: "#ffffff"
+    row_band_color: "#f8fafc"
+    note_state: collapsed
+    note_display: hover
+    note_text: 'Top 5 pages by user traffic'
     listen: {}
     row: 11
     col: 6
@@ -521,26 +522,11 @@
     hidden_fields: []
     hidden_points_if_no: []
     series_labels: {}
-    map_plot_mode: points
-    heatmap_gridlines: true
-    heatmap_gridlines_empty: false
-    heatmap_opacity: 0.5
-    show_region_field: true
-    draw_map_labels_above_data: true
-    map_tile_provider: light
-    map_position: fit_data
-    map_pannable: true
-    map_zoomable: true
-    map_marker_type: circle
-    map_marker_icon_name: default
-    map_marker_radius_mode: proportional_value
-    map_marker_units: meters
-    map_marker_proportional_scale_type: linear
-    map_marker_color_mode: fixed
-    show_legend: true
-    quantize_map_value_colors: false
-    reverse_map_value_colors: false
-    defaults_version: 1
+    is_3d: true
+    series_types: {}
+    note_state: collapsed
+    note_display: hover
+    note_text: 'User distribution by city'
     listen: {}
     row: 15
     col: 0
