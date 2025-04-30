@@ -106,6 +106,7 @@ view: dynamicschema {
   }
   dimension: geo__country {
     type: string
+    map_layer_name: countries
     sql: ${TABLE}.geo.country ;;
     group_label: "Geo"
     group_item_label: "Country"
@@ -115,6 +116,10 @@ view: dynamicschema {
     sql: ${TABLE}.geo.region ;;
     group_label: "Geo"
     group_item_label: "Region"
+  }
+  dimension: location {
+    type: string
+    sql: ${TABLE}.location ;;
   }
   dimension_group: ingestion_ts {
     type: time
@@ -256,7 +261,7 @@ view: dynamicschema {
   }
   measure: Avg_Page_Load_Time {
     type: number
-    sql: round(avg(cast(${TABLE}.page.pageLoadTime as decimal)),2) ;;
+    sql: round(avg(cast(${TABLE}.page.pageLoadTime as decimal))/60,2) ;;
   }
 
 

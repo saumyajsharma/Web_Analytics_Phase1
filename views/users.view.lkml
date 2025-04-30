@@ -83,10 +83,21 @@ view: users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
   }
-
   measure: Avg_Engagement_Time {
     type: number
-    sql: round(avg(${TABLE}.engagement_time_sec)/60,2) ;;
+    sql:  round(avg(cast(${TABLE}.engagement_time_sec as decimal)) / 60,2) ;;
+
+    }
+
+
+  measure: Avg_Engagement_Time_min_secs {
+    type: string
+    sql:  CONCAT(
+    FLOOR(AVG(${TABLE}.engagement_time_sec) / 60), ' min ',
+    CAST(MOD(CAST(AVG(${TABLE}.engagement_time_sec) AS INT64), 60) AS STRING), ' sec'
+  ) ;;
+
+    description: "Average session duration formatted as minutes:seconds"
   }
   measure: Avg_Engagement_Time_form {
     type: string
