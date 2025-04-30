@@ -1,117 +1,148 @@
----
 - dashboard: web_analytics_phase1
-  title: Web Analytics Phase1
+  title: Web Analytics Phase 1
   layout: newspaper
-  description: ''
+  description: 'A comprehensive dashboard for web analytics insights'
   preferred_slug: V88vjf6g8RDwNZ5IbXObGK
   elements:
-  - name: ''
+  - name: Navigation
     type: text
     title_text: ''
     subtitle_text: ''
-    body_text: "<div style=\"width: 100%; background-color: #f8f9fa; border-right:\
-      \ 1px solid #e0e0e0; font-family: Arial, sans-serif;\">\n  <h3 style=\"font-size:\
-      \ 14px; color: #333; margin: 0 0 6px 12px; font-weight: 600;\">Analytics</h3>\n\
-      \  <div style=\"display: flex; flex-direction: column; gap: 10px;\">\n    <!--\
-      \ Home -->\n    <a href=\"https://accenture360.cloud.looker.com/dashboards/339?region={{\
-      \ _filters['region'] | url_encode }}\" \n       style=\"padding: 6px 12px; text-decoration:\
-      \ none; color: #333; font-size: 14px; border-radius: 4px; display: block; transition:\
-      \ background-color 0.3s;\">\n      Home\n    </a>\n    <!-- Acquisition with\
-      \ Submenu -->\n    <div style=\"margin: 0;\">\n      <a href=\"https://accenture360.cloud.looker.com/dashboards/349?region={{\
-      \ _filters['region'] | url_encode }}\" \n         style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #333; font-size: 14px; border-radius: 4px; display:\
-      \ block; transition: background-color 0.3s;\">\n        Acquisition\n      </a>\n\
-      \      <div style=\"padding-left: 20px; margin-top: 4px; display: flex; flex-direction:\
-      \ column; gap: 4px;\">\n        <a href=\"https://accenture360.cloud.looker.com/dashboards/349?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          Overview\n        </a>\n\
-      \        <a href=\"https://accenture360.cloud.looker.com/dashboards/351?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          User Acquisition\n \
-      \       </a>\n        <a href=\"https://accenture360.cloud.looker.com/dashboards/350?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          Traffic Acquisition\n\
-      \        </a>\n      </div>\n    </div>\n    <!-- Engagement with Submenu -->\n\
-      \    <div style=\"margin: 0;\">\n      <a href=\"https://accenture360.cloud.looker.com/dashboards/340?region={{\
-      \ _filters['region'] | url_encode }}\" \n         style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #333; font-size: 14px; border-radius: 4px; display:\
-      \ block; transition: background-color 0.3s;\">\n        Engagement\n      </a>\n\
-      \      <div style=\"padding-left: 20px; margin-top: 4px; display: flex; flex-direction:\
-      \ column; gap: 4px;\">\n        <a href=\"https://accenture360.cloud.looker.com/dashboards/340?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          Overview\n        </a>\n\
-      \        <a href=\"https://accenture360.cloud.looker.com/dashboards/341?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          Pages\n        </a>\n\
-      \t\t <a href=\"https://accenture360.cloud.looker.com/dashboards/352?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          Events\n        </a>\n\
-      \      </div>\n    </div>\n    <!-- Demographics with Submenu -->\n    <div\
-      \ style=\"margin: 0;\">\n      <a href=\"https://accenture360.cloud.looker.com/dashboards/325?region={{\
-      \ _filters['region'] | url_encode }}\" \n         style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #333; font-size: 14px; border-radius: 4px; display:\
-      \ block; transition: background-color 0.3s;\">\n        Demographics\n     \
-      \ </a>\n      <div style=\"padding-left: 20px; margin-top: 4px; display: flex;\
-      \ flex-direction: column; gap: 4px;\">\n        <a href=\"https://accenture360.cloud.looker.com/dashboards/333?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          User Geography\n   \
-      \     </a>\n        <a href=\"https://accenture360.cloud.looker.com/dashboards/334?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          User Interests\n   \
-      \     </a>\n      </div>\n    </div>\n    <!-- Real-time with Submenu -->\n\
-      \    <div style=\"margin: 0;\">\n      <a href=\"https://accenture360.cloud.looker.com/dashboards/325?region={{\
-      \ _filters['region'] | url_encode }}\" \n         style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #333; font-size: 14px; border-radius: 4px; display:\
-      \ block; transition: background-color 0.3s;\">\n        Real-time\n      </a>\n\
-      \      <div style=\"padding-left: 20px; margin-top: 4px; display: flex; flex-direction:\
-      \ column; gap: 4px;\">\n        <a href=\"https://accenture360.cloud.looker.com/dashboards/333?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          Active Users\n     \
-      \   </a>\n        <a href=\"https://accenture360.cloud.looker.com/dashboards/334?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          Live Traffic\n     \
-      \   </a>\n      </div>\n    </div>\n    <!-- Technology with Submenu -->\n \
-      \   <div style=\"margin: 0;\">\n      <a href=\"https://accenture360.cloud.looker.com/dashboards/342?region={{\
-      \ _filters['region'] | url_encode }}\" \n         style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #333; font-size: 14px; border-radius: 4px; display:\
-      \ block; transition: background-color 0.3s;\">\n        Technology\n      </a>\n\
-      \      <div style=\"padding-left: 20px; margin-top: 4px; display: flex; flex-direction:\
-      \ column; gap: 4px;\">\n        <a href=\"https://accenture360.cloud.looker.com/dashboards/342?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          Device Overview\n  \
-      \      </a>\n        <a href=\"https://accenture360.cloud.looker.com/dashboards/343?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          Browser & OS\n     \
-      \   </a>\n      </div>\n    </div>\n    <!-- Campaigns with Submenu -->\n  \
-      \  <div style=\"margin: 0;\">\n      <a href=\"https://accenture360.cloud.looker.com/dashboards/346?region={{\
-      \ _filters['region'] | url_encode }}\" \n         style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #333; font-size: 14px; border-radius: 4px; display:\
-      \ block; transition: background-color 0.3s;\">\n        Campaigns\n      </a>\n\
-      \      <div style=\"padding-left: 20px; margin-top: 4px; display: flex; flex-direction:\
-      \ column; gap: 4px;\">\n        <a href=\"https://accenture360.cloud.looker.com/dashboards/346?region={{\
-      \ _filters['region'] | url_encode }}\" \n           style=\"padding: 6px 12px;\
-      \ text-decoration: none; color: #666; font-size: 14px; display: block; border-radius:\
-      \ 4px; transition: background-color 0.3s;\">\n          Campaign Performance\n\
-      \        </a>\n      </div>\n    </div>\n  </div>\n</div>\n\n<style>\n  a:hover\
-      \ {\n    background-color: #e9ecef;\n  }\n</style>"
+    body_text: |
+      <div style="width: 100%; background-color: #ffffff; border-right: 1px solid #e9ecef; font-family: 'Roboto', sans-serif; box-shadow: 2px 0 8px rgba(0,0,0,0.05);">
+        <h3 style="font-size: 18px; color: #1a3c5e; margin: 20px 0 16px 20px; font-weight: 700; letter-spacing: 0.5px;">Analytics Dashboard</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px; padding: 0 10px;">
+          <!-- Home -->
+          <a href="https://accenture360.cloud.looker.com/dashboards/339?region={{ _filters['region'] | url_encode }}"
+             style="padding: 12px 20px; text-decoration: none; color: #1a3c5e; font-size: 15px; border-radius: 6px; display: flex; align-items: center; transition: all 0.3s ease; font-weight: 500;">
+            <i class="fa fa-home" style="margin-right: 10px;"></i> Home
+          </a>
+          <!-- Acquisition with Submenu -->
+          <div style="margin: 0;">
+            <a href="https://accenture360.cloud.looker.com/dashboards/349?region={{ _filters['region'] | url_encode }}"
+               style="padding: 12px 20px; text-decoration: none; color: #1a3c5e; font-size: 15px; border-radius: 6px; display: flex; align-items: center; transition: all 0.3s ease; font-weight: 500;">
+              <i class="fa fa-chart-line" style="margin-right: 10px;"></i> Acquisition
+            </a>
+            <div style="padding-left: 30px; margin-top: 6px; display: flex; flex-direction: column; gap: 6px;">
+              <a href="https://accenture360.cloud.looker.com/dashboards/349?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                Overview
+              </a>
+              <a href="https://accenture360.cloud.looker.com/dashboards/351?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                User Acquisition
+              </a>
+              <a href="https://accenture360.cloud.looker.com/dashboards/350?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                Traffic Acquisition
+              </a>
+            </div>
+          </div>
+          <!-- Engagement with Submenu -->
+          <div style="margin: 0;">
+            <a href="https://accenture360.cloud.looker.com/dashboards/340?region={{ _filters['region'] | url_encode }}"
+               style="padding: 12px 20px; text-decoration: none; color: #1a3c5e; font-size: 15px; border-radius: 6px; display: flex; align-items: center; transition: all 0.3s ease; font-weight: 500;">
+              <i class="fa fa-users" style="margin-right: 10px;"></i> Engagement
+            </a>
+            <div style="padding-left: 30px; margin-top: 6px; display: flex; flex-direction: column; gap: 6px;">
+              <a href="https://accenture360.cloud.looker.com/dashboards/340?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                Overview
+              </a>
+              <a href="https://accenture360.cloud.looker.com/dashboards/341?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                Pages
+              </a>
+              <a href="https://accenture360.cloud.looker.com/dashboards/352?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                Events
+              </a>
+            </div>
+          </div>
+          <!-- Demographics with Submenu -->
+          <div style="margin: 0;">
+            <a href="https://accenture360.cloud.looker.com/dashboards/325?region={{ _filters['region'] | url_encode }}"
+               style="padding: 12px 20px; text-decoration: none; color: #1a3c5e; font-size: 15px; border-radius: 6px; display: flex; align-items: center; transition: all 0.3s ease; font-weight: 500;">
+              <i class="fa fa-globe" style="margin-right: 10px;"></i> Demographics
+            </a>
+            <div style="padding-left: 30px; margin-top: 6px; display: flex; flex-direction: column; gap: 6px;">
+              <a href="https://accenture360.cloud.looker.com/dashboards/333?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                User Geography
+              </a>
+              <a href="https://accenture360.cloud.looker.com/dashboards/334?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                User Interests
+              </a>
+            </div>
+          </div>
+          <!-- Real-time with Submenu -->
+          <div style="margin: 0;">
+            <a href="https://accenture360.cloud.looker.com/dashboards/325?region Oversized Link" style="padding: 12px 20px; text-decoration: none; color: #1a3c5e; font-size: 15px; border-radius: 6px; display: flex; align-items: center; transition: all 0.3s ease; font-weight: 500;">
+              <i class="fa fa-clock" style="margin-right: 10px;"></i> Real-time
+            </a>
+            <div style="padding-left: 30px; margin-top: 6px; display: flex; flex-direction: column; gap: 6px;">
+              <a href="https://accenture360.cloud.looker.com/dashboards/333?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                Active Users
+              </a>
+              <a href="https://accenture360.cloud.looker.com/dashboards/334?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                Live Traffic
+              </a>
+            </div>
+          </div>
+          <!-- Technology with Submenu -->
+          <div style="margin: 0;">
+            <a href="https://accenture360.cloud.looker.com/dashboards/342?region={{ _filters['region'] | url_encode }}"
+               style="padding: 12px 20px; text-decoration: none; color: #1a3c5e; font-size: 15px; border-radius: 6px; display: flex; align-items: center; transition: all 0.3s ease; font-weight: 500;">
+              <i class="fa fa-laptop" style="margin-right: 10px;"></i> Technology
+            </a>
+            <div style="padding-left: 30px; margin-top: 6px; display: flex; flex-direction: column; gap: 6px;">
+              <a href="https://accenture360.cloud.looker.com/dashboards/342?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                Device Overview
+              </a>
+              <a href="https://accenture360.cloud.looker.com/dashboards/343?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                Browser & OS
+              </a>
+            </div>
+          </div>
+          <!-- Campaigns with Submenu -->
+          <div style="margin: 0;">
+            <a href="https://accenture360.cloud.looker.com/dashboards/346?region={{ _filters['region'] | url_encode }}"
+               style="padding: 12px 20px; text-decoration: none; color: #1a3c5e; font-size: 15px; border-radius: 6px; display: flex; align-items: center; transition: all 0.3s ease; font-weight: 500;">
+              <i class="fa fa-bullhorn" style="margin-right: 10px;"></i> Campaigns
+            </a>
+            <div style="padding-left: 30px; margin-top: 6px; display: flex; flex-direction: column; gap: 6px;">
+              <a href="https://accenture360.cloud.looker.com/dashboards/346?region={{ _filters['region'] | url_encode }}"
+                 style="padding: 8px 20px; text-decoration: none; color: #5a6b7c; font-size: 14px; display: block; border-radius: 6px; transition: all 0.3s ease;">
+                Campaign Performance
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+        a:hover {
+          background-color: #f1f4f8;
+          color: #005566;
+          transform: translateX(5px);
+        }
+        a:hover i {
+          color: #005566;
+        }
+      </style>
     row: 1
     col: 0
     width: 6
-    height: 14
-  - title: New Tile
-    name: New Tile
+    height: 20
+  - title: LoggedIn Users
+    name: LoggedIn Users
     model: Web_Analytics_Phase1
     explore: sessions
     type: single_value
@@ -124,9 +155,9 @@
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
+    enable_conditional_formatting: true
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e6f0fa",
+        font_color: "#1a3c5e", bold: true, italic: false, strikethrough: false, fields: !!null ''}]
     single_value_title: LoggedIn Users
     defaults_version: 1
     hidden_pivots: {}
@@ -178,16 +209,19 @@
     x_axis_label: Date
     x_axis_zoom: true
     y_axis_zoom: true
-    limit_displayed_rows_values:
+    limit_displayed_rows Caves:
       show_hide: hide
       first_last: first
       num_rows: 0
     hide_legend: false
+    series_colors:
+      sessions.Unique_Sessions: "#005566"
+      users.Unique_Users: "#4a90e2"
     reference_lines: []
     trend_lines: []
     custom_color_enabled: true
     show_single_value_title: true
-    single_value_title: LoggedIn Users
+    single_value_title: Daily User Trends
     show_comparison: false
     comparison_type: value
     comparison_reverse_colors: false
@@ -208,8 +242,8 @@
     col: 6
     width: 18
     height: 5
-  - title: New Tile
-    name: New Tile (2)
+  - title: Sessions Per User
+    name: Sessions Per User
     model: Web_Analytics_Phase1
     explore: sessions
     type: single_value
@@ -222,10 +256,10 @@
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    single_value_title: Session per user
+    enable_conditional_formatting: true
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e6f0fa",
+        font_color: "#1a3c5e", bold: true, italic: false, strikethrough: false, fields: !!null ''}]
+    single_value_title: Sessions Per User
     defaults_version: 1
     listen:
       Location: sessions.location
@@ -234,8 +268,8 @@
     col: 10
     width: 5
     height: 2
-  - title: New Tile
-    name: New Tile (3)
+  - title: Total Sessions
+    name: Total Sessions
     model: Web_Analytics_Phase1
     explore: sessions
     type: single_value
@@ -248,10 +282,10 @@
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    single_value_title: Sessions
+    enable_conditional_formatting: true
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e6f0fa",
+        font_color: "#1a3c5e", bold: true, italic: false, strikethrough: false, fields: !!null ''}]
+    single_value_title: Total Sessions
     defaults_version: 1
     hidden_pivots: {}
     listen:
@@ -261,8 +295,8 @@
     col: 15
     width: 4
     height: 2
-  - title: New Tile
-    name: New Tile (4)
+  - title: Engaged Sessions
+    name: Engaged Sessions
     model: Web_Analytics_Phase1
     explore: sessions
     type: single_value
@@ -275,9 +309,9 @@
     comparison_type: value
     comparison_reverse_colors: false
     show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
+    enable_conditional_formatting: true
+    conditional_formatting: [{type: equal to, value: !!null '', background_color: "#e6f0fa",
+        font_color: "#1a3c5e", bold: true, italic: false, strikethrough: false, fields: !!null ''}]
     single_value_title: Engaged Sessions
     defaults_version: 1
     hidden_pivots: {}
@@ -288,18 +322,18 @@
     col: 6
     width: 4
     height: 2
-  - title: Users data
-    name: Users data
+  - title: User Breakdown
+    name: User Breakdown
     model: Web_Analytics_Phase1
     explore: sessions
-    type: Multi
+    type: looker_pie
     fields: [unique_users, new_users]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - category: measure
       expression: "${sessions.new_user_flag} = yes"
-      label: New users
+      label: New Users
       value_format:
       value_format_name:
       based_on: sessions.user_id
@@ -310,7 +344,7 @@
       _type_hint: number
     - category: measure
       expression:
-      label: Unique users
+      label: Unique Users
       value_format:
       value_format_name:
       based_on: sessions.user_id
@@ -319,26 +353,21 @@
       type: count_distinct
       _type_hint: number
     - category: table_calculation
-      expression: "${uu}-${newly_users}"
-      label: Return users
-      value_format:
-      value_format_name:
-      _kind_hint: dimension
-      table_calculation: return_users
-      _type_hint: number
-      is_disabled: true
-    - category: table_calculation
       expression: "${unique_users}-${new_users}"
-      label: Return users
+      label: Returning Users
       value_format:
       value_format_name:
       _kind_hint: measure
-      table_calculation: return_users_1
+      table_calculation: returning_users
       _type_hint: number
     hidden_fields: []
     hidden_points_if_no: []
-    series_labels: {}
-    show_view_names: true
+    series_labels:
+      new_users: New Users
+      returning_users: Returning Users
+    show_view_names: false
+    show_value_labels: true
+    font_size: '12'
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -348,10 +377,12 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    single_value_title: New Users
+    single_value_title: User Breakdown
+    series_colors:
+      new_users: "#4a90e2"
+      returning_users: "#005566"
     hidden_pivots: {}
-    defaults_version: 0
-    color_application: undefined
+    defaults_version: 1
     listen:
       Location: sessions.location
       Date: sessions.begin_timestamp_date
@@ -379,7 +410,7 @@
     limit_displayed_rows: true
     enable_conditional_formatting: true
     header_text_alignment: left
-    header_font_size: '12'
+    header_font_size: '14'
     rows_font_size: '12'
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
@@ -392,12 +423,15 @@
       dynamicschema.Users:
         is_active: true
         value_display: true
+        palette:
+          palette_id: mars-palette-diverging-0
+          collection_id: mars-palette
     limit_displayed_rows_values:
       show_hide: hide
       first_last: first
       num_rows: 0
-    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#0000A0",
-        font_color: !!null '', color_application: {collection_id: mars-palette, palette_id: mars-palette-diverging-0,
+    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#e6f0fa",
+        font_color: "#1a3c5e", color_application: {collection_id: mars-palette, palette_id: mars-palette-diverging-0,
           options: {steps: 5}}, bold: false, italic: false, strikethrough: false,
         fields: !!null ''}]
     x_axis_gridlines: false
@@ -433,11 +467,11 @@
     col: 6
     width: 18
     height: 4
-  - name: "\U0001f4c8 Home \U0001f4c8"
+  - name: "📈 Home 📈"
     type: text
-    title_text: "\U0001f4c8 Home \U0001f4c8"
+    title_text: "📈 Web Analytics Dashboard 📈"
     subtitle_text: ''
-    body_text: ''
+    body_text: '<div style="font-family: ''Roboto'', sans-serif; font-size: 16px; color: #1a3c5e; text-align: center; padding: 10px; background-color: #f1f4f8; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Welcome to the Web Analytics Dashboard</div>'
     row: 0
     col: 0
     width: 24
@@ -449,11 +483,11 @@
     type: looker_column
     fields: [dynamicschema.Users, dynamicschema.geo__city]
     sorts: [dynamicschema.Users desc 0]
-    limit: 500
+    limit: 10
     column_limit: 50
     x_axis_gridlines: false
     y_axis_gridlines: true
-    show_view_names: true
+    show_view_names: false
     show_y_axis_labels: true
     show_y_axis_ticks: true
     y_axis_tick_density: default
@@ -466,10 +500,10 @@
     plot_size_by_field: false
     trellis: ''
     stacking: ''
-    limit_displayed_rows: false
+    limit_displayed_rows: true
     legend_position: center
     point_style: none
-    show_value_labels: false
+    show_value_labels: true
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
@@ -478,6 +512,12 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
+    series_colors:
+      dynamicschema.Users: "#4a90e2"
+    limit_displayed_rows_values:
+      show_hide: show
+      first_last: first
+      num_rows: '10'
     hidden_fields: []
     hidden_points_if_no: []
     series_labels: {}
