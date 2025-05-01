@@ -27,43 +27,43 @@ view: dynamicschema {
     type: string
     sql: ${TABLE}.customerId ;;
   }
-  dimension: device__browser {
+  dimension: browser {
     type: string
     sql: ${TABLE}.device.browser ;;
     group_label: "Device"
     group_item_label: "Browser"
   }
-  dimension: device__browserversion {
+  dimension: browserversion {
     type: string
     sql: ${TABLE}.device.browserversion ;;
     group_label: "Device"
     group_item_label: "Browserversion"
   }
-  dimension: device__device_type {
+  dimension: device_type {
     type: string
     sql: ${TABLE}.device.deviceType ;;
     group_label: "Device"
     group_item_label: "Device Type"
   }
-  dimension: device__os {
+  dimension: os {
     type: string
     sql: ${TABLE}.device.os ;;
     group_label: "Device"
     group_item_label: "OS"
   }
-  dimension: device__os_version {
+  dimension: os_version {
     type: string
     sql: ${TABLE}.device.osVersion ;;
     group_label: "Device"
     group_item_label: "OS Version"
   }
-  dimension: device__screen_height {
+  dimension: screen_height {
     type: number
     sql: ${TABLE}.device.screenHeight ;;
     group_label: "Device"
     group_item_label: "Screen Height"
   }
-  dimension: device__screen_width {
+  dimension: screen_width {
     type: number
     sql: ${TABLE}.device.screenWidth ;;
     group_label: "Device"
@@ -98,20 +98,20 @@ view: dynamicschema {
     type: string
     sql: ${TABLE}.gaClientId ;;
   }
-  dimension: geo__city {
+  dimension: city {
     type: string
     sql: ${TABLE}.geo.city ;;
     group_label: "Geo"
     group_item_label: "City"
   }
-  dimension: geo__country {
+  dimension: country {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.geo.country ;;
     group_label: "Geo"
     group_item_label: "Country"
   }
-  dimension: geo__region {
+  dimension: region {
     type: string
     sql: ${TABLE}.geo.region ;;
     group_label: "Geo"
@@ -126,61 +126,61 @@ view: dynamicschema {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.ingestion_ts ;;
   }
-  dimension: page__environment {
+  dimension: environment {
     type: string
     sql: ${TABLE}.page.environment ;;
     group_label: "Page"
     group_item_label: "Environment"
   }
-  dimension: page__page_content_type {
+  dimension: page_content_type {
     type: string
     sql: ${TABLE}.page.pageContentType ;;
     group_label: "Page"
     group_item_label: "Page Content Type"
   }
-  dimension: page__page_hostname {
+  dimension: page_hostname {
     type: string
     sql: ${TABLE}.page.pageHostname ;;
     group_label: "Page"
     group_item_label: "Page Hostname"
   }
-  dimension: page__page_language {
+  dimension: page_language {
     type: string
     sql: ${TABLE}.page.pageLanguage ;;
     group_label: "Page"
     group_item_label: "Page Language"
   }
-  dimension: page__page_load_time {
+  dimension: page_load_time {
     type: string
     sql: ${TABLE}.page.pageLoadTime ;;
     group_label: "Page"
     group_item_label: "Page Load Time"
   }
-  dimension: page__page_name {
+  dimension: page_name {
     type: string
     sql: ${TABLE}.page.pageName ;;
     group_label: "Page"
     group_item_label: "Page Name"
   }
-  dimension: page__page_path {
+  dimension: page_path {
     type: string
     sql: ${TABLE}.page.pagePath ;;
     group_label: "Page"
     group_item_label: "Page Path"
   }
-  dimension: page__page_referrer {
+  dimension: page_referrer {
     type: string
     sql: ${TABLE}.page.pageReferrer ;;
     group_label: "Page"
     group_item_label: "Page Referrer"
   }
-  dimension: page__page_title {
+  dimension: page_title {
     type: string
     sql: ${TABLE}.page.pageTitle ;;
     group_label: "Page"
     group_item_label: "Page Title"
   }
-  dimension: page__page_url {
+  dimension: page_url {
     type: string
     sql: ${TABLE}.page.pageUrl ;;
     group_label: "Page"
@@ -190,37 +190,37 @@ view: dynamicschema {
     type: string
     sql: ${TABLE}.rdUserId ;;
   }
-  dimension: session__campaign {
+  dimension: campaign {
     type: string
     sql: ${TABLE}.session.campaign ;;
     group_label: "Session"
     group_item_label: "Campaign"
   }
-  dimension: session__content {
+  dimension: content {
     type: string
     sql: ${TABLE}.session.content ;;
     group_label: "Session"
     group_item_label: "Content"
   }
-  dimension: session__first_time_user {
+  dimension: first_time_user {
     type: string
     sql: ${TABLE}.session.firstTimeUser ;;
     group_label: "Session"
     group_item_label: "First Time User"
   }
-  dimension: session__medium {
+  dimension: medium {
     type: string
     sql: ${TABLE}.session.medium ;;
     group_label: "Session"
     group_item_label: "Medium"
   }
-  dimension: session__source {
+  dimension: source {
     type: string
     sql: ${TABLE}.session.source ;;
     group_label: "Session"
     group_item_label: "Source"
   }
-  dimension_group: session__start {
+  dimension_group: start {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.session.startTime ;;
@@ -241,7 +241,7 @@ view: dynamicschema {
   }
   measure: count {
     type: count
-    drill_fields: [event_name, page__page_name, page__page_hostname, sessions.session_id, users.user_id]
+    drill_fields: [event_name, page_name, page_hostname, sessions.session_id, users.user_id]
   }
   measure: Sessions {
     type: number
@@ -317,7 +317,7 @@ view: dynamicschema__consents__vendors {
     type: string
     sql: ${TABLE}.name ;;
   }
-  measure: Users {
+  measure: Total_Users {
     type: number
     sql: count(${TABLE}.userID) ;;
   }
@@ -325,7 +325,7 @@ view: dynamicschema__consents__vendors {
     type: count_distinct
     sql: ${TABLE}.customerID ;;
   }
-  measure: Unique_Users {
+  measure: Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
   }

@@ -28,7 +28,7 @@
         label: New users
         value_format:
         value_format_name:
-        based_on: users.Unique_Users
+        based_on: users.Users
         filter_expression: "${users.new_user_flag} = yes"
         _kind_hint: measure
         measure: new_users

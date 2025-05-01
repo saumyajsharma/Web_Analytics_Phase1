@@ -71,7 +71,7 @@ view: users {
     type: count
     drill_fields: [user_id, dynamicschema.count, sessions.count]
   }
-  measure: Users {
+  measure: Total_Users {
     type: number
     sql: count(${TABLE}.userID) ;;
   }
@@ -79,7 +79,7 @@ view: users {
     type: count_distinct
     sql: ${TABLE}.customerID ;;
   }
-  measure: Unique_Users {
+  measure: Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
   }
@@ -90,11 +90,11 @@ view: users {
     }
 
 
-  measure: Avg_Engagement_Time_min_secs {
+  measure: Average_Engagement_Time {
     type: string
     sql:  CONCAT(
-    FLOOR(AVG(${TABLE}.engagement_time_sec) / 60), ' min ',
-    CAST(MOD(CAST(AVG(${TABLE}.engagement_time_sec) AS INT64), 60) AS STRING), ' sec'
+    FLOOR(AVG(${TABLE}.engagement_time_sec) / 60), ' m ',
+    CAST(MOD(CAST(AVG(${TABLE}.engagement_time_sec) AS INT64), 60) AS STRING), ' s'
   ) ;;
 
     description: "Average session duration formatted as minutes:seconds"
