@@ -90,7 +90,7 @@ view: rtdynamicschema # Un-hide and use this explore, or copy the joins into ano
   }
   dimension_group: event_ts {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time,  date, week, month, quarter, year, hour, minute, day_of_month,hour_of_day]
     sql: ${TABLE}.event_ts ;;
   }
   dimension: ga_client_id {
