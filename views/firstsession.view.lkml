@@ -7,7 +7,7 @@ view: firstsession {
              medium,
              campaign,
              ROW_NUMBER() OVER(PARTITION BY userId ORDER BY begin_timestamp ASC) AS rnk
-           FROM `uxlwqzc-cdip-sandbox-test.web_analytics.sessions`
+           FROM `uxlwqzc-cdip-sandbox-test.web_analytics.sessions` where session_date is not null
          )
          SELECT userId, source, medium, campaign
          FROM cte
