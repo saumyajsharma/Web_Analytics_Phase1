@@ -1,12 +1,47 @@
 view: sessions {
-  sql_table_name: `uxlwqzc-cdip-sandbox-test.web_analytics.sessions` ;;
+
+  derived_table: {
+    sql: WITH cte AS (
+  SELECT
+    visitId,
+    COUNT(eventhitcount) AS ct
+  FROM `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema`
+  WHERE event_ts IS NOT NULL
+  GROUP BY visitId
+),
+visits AS (
+  SELECT
+    CASE WHEN cte.ct > 1 THEN cte.visitId ELSE NULL END AS sessionId,
+    sess.session_date, sess.customerId, sess.userId, sess.location,
+    sess.begin_timestamp, sess.end_timestamp, sess.session_duration,
+    sess.purchase_flag, sess.total_transaction_value,
+    sess.engaged_session_flag, sess.source, sess.medium,
+    sess.campaign, sess.content, sess.channel_grouping_id,
+    sess.firsttimeUser, sess.firstPage, sess.exit_page,
+    sess.device.browserversion, sess.device.deviceType,
+    sess.device.os, sess.device.osVersion,
+    sess.device.screenHeight, sess.device.screenwidth,
+    sess.device.browser,
+    sess.geo.country, sess.geo.region, sess.geo.city
+  FROM `uxlwqzc-cdip-sandbox-test.web_analytics.sessions` AS sess
+  LEFT JOIN cte ON cte.visitId = sess.visitId
+  WHERE sess.session_date IS NOT NULL
+)
+SELECT *
+FROM visits
+WHERE sessionId IS NOT NULL ;;
+  }
   drill_fields: [session_id]
 
   dimension: session_id {
     primary_key: yes
     type: string
-    sql: ${TABLE}.sessionID ;;
+    sql: ${TABLE}.sessionId ;;
   }
+
+
+
+
   dimension_group: begin_timestamp {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
@@ -28,45 +63,56 @@ view: sessions {
     type: string
     sql: ${TABLE}.customerId ;;
   }
+  dimension: landing_page {
+    type: string
+    sql: ${TABLE}.firstPage ;;
+
+  }
+  dimension: first_time_user {
+    type: "yesno"
+    sql: ${TABLE}.firstTimeUser ;;
+    group_label: "Session"
+    group_item_label: "First Time User"
+  }
   dimension: device__browser {
     type: string
-    sql: ${TABLE}.device.browser ;;
+    sql: ${TABLE}.browser ;;
     group_label: "Device"
     group_item_label: "Browser"
   }
   dimension: device__browserversion {
     type: string
-    sql: ${TABLE}.device.browserversion ;;
+    sql: ${TABLE}.browserversion ;;
     group_label: "Device"
     group_item_label: "Browserversion"
   }
   dimension: device__device_type {
     type: string
-    sql: ${TABLE}.device.deviceType ;;
+    sql: ${TABLE}.deviceType ;;
     group_label: "Device"
     group_item_label: "Device Type"
   }
   dimension: device__os {
     type: string
-    sql: ${TABLE}.device.os ;;
+    sql: ${TABLE}.os ;;
     group_label: "Device"
     group_item_label: "OS"
   }
   dimension: device__os_version {
     type: string
-    sql: ${TABLE}.device.osVersion ;;
+    sql: ${TABLE}.osVersion ;;
     group_label: "Device"
     group_item_label: "OS Version"
   }
   dimension: device__screen_height {
     type: number
-    sql: ${TABLE}.device.screenHeight ;;
+    sql: ${TABLE}.screenHeight ;;
     group_label: "Device"
     group_item_label: "Screen Height"
   }
   dimension: device__screen_width {
     type: number
-    sql: ${TABLE}.device.screenWidth ;;
+    sql: ${TABLE}.screenWidth ;;
     group_label: "Device"
     group_item_label: "Screen Width"
   }
@@ -85,20 +131,20 @@ view: sessions {
   }
   dimension: geo__city {
     type: string
-    sql: ${TABLE}.geo.city ;;
+    sql: ${TABLE}.city ;;
     group_label: "Geo"
     group_item_label: "City"
   }
   dimension: geo__country {
     type: string
     map_layer_name: countries
-    sql: ${TABLE}.geo.country ;;
+    sql: ${TABLE}.country ;;
     group_label: "Geo"
     group_item_label: "Country"
   }
   dimension: geo__region {
     type: string
-    sql: ${TABLE}.geo.region ;;
+    sql: ${TABLE}.region ;;
     group_label: "Geo"
     group_item_label: "Region"
   }
@@ -110,10 +156,7 @@ view: sessions {
     type: string
     sql: ${TABLE}.medium ;;
   }
-  dimension: new_user_flag {
-    type: yesno
-    sql: ${TABLE}.new_user_flag ;;
-  }
+
   dimension: purchase_flag {
     type: yesno
     sql: ${TABLE}.purchase_flag ;;
@@ -142,25 +185,28 @@ view: sessions {
     # hidden: yes
     sql: ${TABLE}.userId ;;
   }
+
   measure: count {
     type: count
     drill_fields: [session_id, users.user_id, dynamicschema.count]
   }
+
+
   measure: Sessions {
     type: number
     sql: count(${TABLE}.sessionID);;
   }
   measure: Users {
-    type: number
-    sql: count(${TABLE}.userID) ;;
+    type: count_distinct
+    sql: ${TABLE}.userID ;;
   }
   measure: New_Users {
     type: count
-    filters: [new_user_flag: "Yes"]
+    filters: [first_time_user: "yes"]
   }
   measure: Returning_Users {
     type: count
-    filters: [new_user_flag: "No"]
+    filters: [first_time_user: "No"]
   }
 
   measure: Avg_Session_Duration {

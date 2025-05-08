@@ -1,11 +1,11 @@
-# Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
-
-view: dynamicschema {
+view: rtdynamicschema # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
+ {
   derived_table: {
-    sql: SELECT * FROM `web_analytics.dynamicschema`  WHERE event_ts IS NOT NULL ;;
+    sql: SELECT * FROM `web_analytics.dynamicschema`  WHERE event_ts >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 HOUR) ;;
   }
 
   dimension: consents__purposes {
+    hidden: yes
     sql: ${TABLE}.consents.purposes ;;
     group_label: "Consents"
     group_item_label: "Purposes"
@@ -17,6 +17,7 @@ view: dynamicschema {
     group_item_label: "Status"
   }
   dimension: consents__vendors {
+    hidden: yes
     sql: ${TABLE}.consents.vendors ;;
     group_label: "Consents"
     group_item_label: "Vendors"
@@ -234,7 +235,6 @@ view: dynamicschema {
     sql: ${TABLE}.visitId ;;
   }
 
-
   dimension: user_id {
     type: string
     # hidden: yes
@@ -253,7 +253,6 @@ view: dynamicschema {
     type: number
     sql: count(${TABLE}.visitId);;
   }
-
   measure: Sessions {
     type: count_distinct
     sql: ${TABLE}.visitId ;;
@@ -284,87 +283,5 @@ view: dynamicschema {
   measure: Avg_Page_Load_Time {
     type: number
     sql: round(avg(cast(${TABLE}.page.pageLoadTime as decimal))/60,2) ;;
-  }
-
-
-
-}
-
-view: dynamicschema__user_properties {
-
-  dimension: dynamicschema__user_properties {
-    type: string
-    hidden: yes
-    sql: dynamicschema__user_properties ;;
-  }
-  dimension: key {
-    type: string
-    sql: key ;;
-  }
-  dimension: value {
-    type: string
-    sql: value ;;
-  }
-
-}
-
-view: dynamicschema__event_properties {
-
-  dimension: dynamicschema__event_properties {
-    type: string
-    hidden: yes
-    sql: dynamicschema__event_properties ;;
-  }
-  dimension: key {
-    type: string
-    sql: key ;;
-  }
-  dimension: value {
-    type: string
-    sql: value ;;
-  }
-
-}
-
-view: dynamicschema__consents__vendors {
-  drill_fields: [id]
-
-  dimension: id {
-    primary_key: yes
-    type: string
-    sql: ${TABLE}.id ;;
-  }
-  dimension: is_consented {
-    type: yesno
-    sql: ${TABLE}.isConsented ;;
-  }
-  dimension: name {
-    type: string
-    sql: ${TABLE}.name ;;
-  }
-  dimension: consents__vendors__name {
-    type: string
-    sql: ${TABLE}.consents.vendors[SAFE_OFFSET(0)].name ;;
-  }
-
-
-
-}
-
-view: dynamicschema__consents__purposes {
-  drill_fields: [id]
-
-  dimension: id {
-    primary_key: yes
-    type: string
-    sql: ${TABLE}.id ;;
-  }
-  dimension: is_consented {
-    type: yesno
-    sql: ${TABLE}.isConsented ;;
-  }
-  dimension: name {
-    type: string
-    sql: ${TABLE}.name ;;
   }
 }
