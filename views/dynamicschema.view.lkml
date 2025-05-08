@@ -6,7 +6,6 @@ view: dynamicschema {
   }
 
   dimension: consents__purposes {
-    hidden: yes
     sql: ${TABLE}.consents.purposes ;;
     group_label: "Consents"
     group_item_label: "Purposes"
@@ -18,7 +17,6 @@ view: dynamicschema {
     group_item_label: "Status"
   }
   dimension: consents__vendors {
-    hidden: yes
     sql: ${TABLE}.consents.vendors ;;
     group_label: "Consents"
     group_item_label: "Vendors"
