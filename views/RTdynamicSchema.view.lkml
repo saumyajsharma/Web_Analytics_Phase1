@@ -253,7 +253,11 @@ view: rtdynamicschema # Un-hide and use this explore, or copy the joins into ano
     type: number
     sql: count(${TABLE}.visitId);;
   }
-
+  measure: Sessions {
+    type: count_distinct
+    sql: ${TABLE}.visitId ;;
+    filters: [event_hit_count: ">1"]
+  }
   measure: Total_Users {
     type: number
     sql: count(${TABLE}.userID) ;;
