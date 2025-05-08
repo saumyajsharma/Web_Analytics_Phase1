@@ -49,11 +49,7 @@ explore: dynamicschema {
     sql: LEFT JOIN UNNEST(${dynamicschema.consents__purposes}) as dynamicschema__consents__purposes ;;
     relationship: one_to_many
   }
-  join: sessions {
-    type: left_outer
-    sql_on: ${dynamicschema.session_id} = ${sessions.session_id} ;;
-    relationship: many_to_one
-  }
+
   join: users {
     type: left_outer
     sql_on: ${dynamicschema.user_id} = ${users.user_id} ;;
@@ -106,14 +102,14 @@ explore: sessions {
   # Join page on sessionID
   join: pages {
     type: left_outer
-    sql_on: ${sessions.session_id} = ${pages.session_id} ;;
+    sql_on: ${sessions.visit_id} = ${pages.session_id} ;;
     relationship: one_to_many
   }
 
   # Join events on sessionID
   join: events {
     type: left_outer
-    sql_on: ${sessions.session_id} = ${events.session_id} ;;
+    sql_on: ${sessions.visit_id} = ${events.session_id} ;;
     relationship: one_to_many
   }
 

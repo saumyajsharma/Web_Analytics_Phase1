@@ -2,7 +2,7 @@
 
 view: dynamicschema {
   derived_table: {
-    sql: SELECT * FROM `web_analytics.dynamicschema` WHERE event_ts IS NOT NULL ;;
+    sql: SELECT * FROM `web_analytics.dynamicschema`  WHERE event_ts IS NOT NULL ;;
   }
 
   dimension: consents__purposes {
@@ -202,8 +202,13 @@ view: dynamicschema {
     group_label: "Session"
     group_item_label: "Content"
   }
+  dimension: landing_page {
+    type: "yesno"
+    sql: ${TABLE}.session.firstPage ;;
+
+  }
   dimension: first_time_user {
-    type: string
+    type: "yesno"
     sql: ${TABLE}.session.firstTimeUser ;;
     group_label: "Session"
     group_item_label: "First Time User"
@@ -225,10 +230,19 @@ view: dynamicschema {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.session.startTime ;;
   }
-  dimension: session_id {
+  dimension: visit_id {
     type: string
     # hidden: yes
-    sql: ${TABLE}.sessionId ;;
+    sql: ${TABLE}.visitId ;;
+  }
+  dimension: SessionsId {
+    type: string
+    sql: CASE
+           WHEN COUNT(${TABLE}.eventhitcount) OVER (PARTITION BY ${TABLE}.visitId) > 1 THEN ${TABLE}.visitId
+           ELSE NULL
+         END ;;
+    description: "Assigns visitId as sessionId if the count of events for the visitId is greater than 1; otherwise, NULL."
+
   }
   dimension: user_id {
     type: string
@@ -239,18 +253,37 @@ view: dynamicschema {
     hidden: yes
     sql: ${TABLE}.userProperties ;;
   }
+
   measure: count {
     type: count
-    drill_fields: [event_name, page_name, page_hostname, sessions.session_id, users.user_id]
+    drill_fields: [event_name, page_name, page_hostname, sessions.visit_id, users.user_id]
+  }
+  measure: Visits {
+    type: number
+    sql: count(${TABLE}.visitId);;
   }
   measure: Sessions {
     type: number
-    sql: count(${TABLE}.sessionID);;
+    sql: count(sessionID);;
+  }
+  measure: Total_Users {
+    type: number
+    sql: count(${TABLE}.userID) ;;
+  }
+  measure: LoggedIn_Users {
+    type: count_distinct
+    sql: ${TABLE}.customerID ;;
   }
   measure: Users {
-    type: number
-    sql: count(${TABLE}.userID);;
+    type: count_distinct
+    sql: ${TABLE}.userID ;;
   }
+  measure: Sessions_Per_User{
+    type: number
+    sql: round((${Sessions}/${Users}),2) ;;
+  }
+
+
   measure: Event_Count {
     type: count_distinct
     sql: ${TABLE}.eventID;;
@@ -263,6 +296,7 @@ view: dynamicschema {
     type: number
     sql: round(avg(cast(${TABLE}.page.pageLoadTime as decimal))/60,2) ;;
   }
+
 
 
 }
@@ -282,6 +316,7 @@ view: dynamicschema__user_properties {
     type: string
     sql: value ;;
   }
+
 }
 
 view: dynamicschema__event_properties {
@@ -299,6 +334,7 @@ view: dynamicschema__event_properties {
     type: string
     sql: value ;;
   }
+
 }
 
 view: dynamicschema__consents__vendors {
@@ -317,18 +353,11 @@ view: dynamicschema__consents__vendors {
     type: string
     sql: ${TABLE}.name ;;
   }
-  measure: Total_Users {
-    type: number
-    sql: count(${TABLE}.userID) ;;
+  dimension: consents__vendors__name {
+    type: string
+    sql: ${TABLE}.consents.vendors[SAFE_OFFSET(0)].name ;;
   }
-  measure: LoggedIn_Users {
-    type: count_distinct
-    sql: ${TABLE}.customerID ;;
-  }
-  measure: Users {
-    type: count_distinct
-    sql: ${TABLE}.userID ;;
-  }
+
 
 
 }

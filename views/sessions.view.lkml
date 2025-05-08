@@ -1,12 +1,19 @@
 view: sessions {
-  sql_table_name: `uxlwqzc-cdip-sandbox-test.web_analytics.sessions` ;;
-  drill_fields: [session_id]
 
-  dimension: session_id {
+  derived_table: {
+    sql: SELECT * FROM `web_analytics.sessions` ses
+left join (select * from `web_analytics.dynamicschema` where event_ts is not null)  ds on
+ses.visitId = ds.visitId
+WHERE session_date is not NULL and eventhitcount > 1 ;;
+  }
+  drill_fields: [visit_id]
+
+  dimension: visit_id {
     primary_key: yes
     type: string
-    sql: ${TABLE}.sessionID ;;
+    sql: ${TABLE}.visitId ;;
   }
+
   dimension_group: begin_timestamp {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
@@ -27,6 +34,17 @@ view: sessions {
   dimension: customer_id {
     type: string
     sql: ${TABLE}.customerId ;;
+  }
+  dimension: landing_page {
+    type: "yesno"
+    sql: ${TABLE}.firstPage ;;
+
+  }
+  dimension: first_time_user {
+    type: "yesno"
+    sql: ${TABLE}.firstTimeUser ;;
+    group_label: "Session"
+    group_item_label: "First Time User"
   }
   dimension: device__browser {
     type: string
@@ -142,9 +160,10 @@ view: sessions {
     # hidden: yes
     sql: ${TABLE}.userId ;;
   }
+
   measure: count {
     type: count
-    drill_fields: [session_id, users.user_id, dynamicschema.count]
+    drill_fields: [visit_id, users.user_id, dynamicschema.count]
   }
   measure: Sessions {
     type: number
@@ -181,22 +200,22 @@ view: sessions {
   measure: Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [session_id: "-NULL",session_date: "last 7 days"]
+    filters: [visit_id: "-NULL",session_date: "last 7 days"]
   }
   measure: Daily_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [session_id: "-NULL",session_date:"1 day ago for 1 day"]
+    filters: [visit_id: "-NULL",session_date:"1 day ago for 1 day"]
   }
   measure: Weekly_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [session_id: "-NULL",session_date: "7 days ago for 7 days"]
+    filters: [visit_id: "-NULL",session_date: "7 days ago for 7 days"]
   }
   measure: Monthly_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [session_id: "-NULL",session_date: "30 days ago for 30 days"]
+    filters: [visit_id: "-NULL",session_date: "30 days ago for 30 days"]
   }
   measure: User_Stickiness {
     type: number
