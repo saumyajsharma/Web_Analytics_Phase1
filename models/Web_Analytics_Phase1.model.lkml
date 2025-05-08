@@ -102,14 +102,14 @@ explore: sessions {
   # Join page on sessionID
   join: pages {
     type: left_outer
-    sql_on: ${sessions.visit_id} = ${pages.session_id} ;;
+    sql_on: ${sessions.session_id} = ${pages.session_id} ;;
     relationship: one_to_many
   }
 
   # Join events on sessionID
   join: events {
     type: left_outer
-    sql_on: ${sessions.visit_id} = ${events.session_id} ;;
+    sql_on: ${sessions.session_id} = ${events.session_id} ;;
     relationship: one_to_many
   }
 
