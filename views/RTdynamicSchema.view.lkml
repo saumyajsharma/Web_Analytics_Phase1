@@ -202,7 +202,7 @@ view: rtdynamicschema # Un-hide and use this explore, or copy the joins into ano
     group_item_label: "Content"
   }
   dimension: landing_page {
-    type: "yesno"
+    type: string
     sql: ${TABLE}.session.firstPage ;;
 
   }

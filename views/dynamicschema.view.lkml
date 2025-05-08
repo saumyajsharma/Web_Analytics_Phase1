@@ -203,7 +203,7 @@ view: dynamicschema {
     group_item_label: "Content"
   }
   dimension: landing_page {
-    type: "yesno"
+    type: string
     sql: ${TABLE}.session.firstPage ;;
 
   }
