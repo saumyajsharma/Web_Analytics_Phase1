@@ -89,8 +89,23 @@ view: dynamicschema {
   }
   dimension_group: event_ts {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter, year, day_of_month, hour_of_day, minute]
     sql: ${TABLE}.event_ts ;;
+  }
+  dimension: event_day {
+    type: date
+    sql: ${event_ts_date} ;;
+    description: "The date of the event in YYYY-MM-DD format"
+  }
+  dimension: event_hour {
+    type: number
+    sql: ${event_ts_hour_of_day} ;;
+    description: "The hour of the event (0-23)"
+  }
+  dimension: event_minute {
+    type: number
+    sql: ${event_ts_minute} ;;
+    description: "The minute of the event (0-59)"
   }
   dimension: ga_client_id {
     type: string
