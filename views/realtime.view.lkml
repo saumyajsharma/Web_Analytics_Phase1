@@ -100,25 +100,21 @@ view: realtime {
     type: string
     sql: ${TABLE}.VisitID ;;
   }
-  measure: count {
-    type: count
-    drill_fields: [event_name, page_url, hostname, sessions.session_id, users.user_id, page_title]
-  }
   measure: Visits {
     type: number
     sql: count(${TABLE}.visitId);;
   }
   measure: LoggedIn_Users {
-    type: count_distinct
-    sql: ${TABLE}.customerID ;;
+    type: number
+    sql: count_distinct(${TABLE}.customerID) ;;
   }
   measure: Users {
-    type: count_distinct
-    sql: ${TABLE}.userID ;;
+    type: number
+    sql: count_distinct(${TABLE}.userID) ;;
   }
   measure: Event_Count {
-    type: count
-    sql: ${TABLE}.eventID;;
+    type: number
+    sql: count(${TABLE}.eventID);;
   }
   measure: pageview_count {
     type: number
