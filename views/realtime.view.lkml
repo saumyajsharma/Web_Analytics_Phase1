@@ -106,11 +106,11 @@ view: realtime {
   }
   measure: LoggedIn_Users {
     type: number
-    sql: count_distinct(${TABLE}.customerID) ;;
+    sql: count(distinct ${TABLE}.customerID) ;;
   }
   measure: Users {
     type: number
-    sql: count_distinct(${TABLE}.userID) ;;
+    sql: count(distinct ${TABLE}.userID) ;;
   }
   measure: Event_Count {
     type: number
