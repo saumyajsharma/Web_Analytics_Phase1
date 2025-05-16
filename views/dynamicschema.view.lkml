@@ -216,7 +216,7 @@ view: dynamicschema {
     group_item_label: "Content"
   }
   dimension: landing_page {
-    type: "yesno"
+    type: string
     sql: ${TABLE}.session.firstPage ;;
 
   }
@@ -292,9 +292,9 @@ view: dynamicschema {
     type: count_distinct
     sql: ${TABLE}.eventID;;
   }
-  measure: pageview_count {
-    type: number
-    sql: count(distinct(${TABLE}.pageUrl)) ;;
+  measure: PageView_Count {
+    type: count
+    filters: [event_name: "Page View"]
   }
   measure: Avg_Page_Load_Time {
     type: number
