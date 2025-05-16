@@ -114,7 +114,7 @@ view: realtime {
   }
   measure: Event_Count {
     type: number
-    sql: count(${TABLE}.event_id);;
+    sql: count(${event_id});;
   }
   measure: pageview_count {
     type: number
