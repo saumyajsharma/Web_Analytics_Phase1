@@ -261,11 +261,19 @@ from cte ;;
 
   measure: New_Users {
     type: count_distinct
-    filters: [first_time_user: "yes"]
+      sql: ${TABLE}.userID ;;
+      filters: [first_time_user: "yes"]
+      label: "New Users"
+
+
   }
   measure: Returning_Users {
     type: count_distinct
-    filters: [first_time_user: "No"]
+    sql: ${TABLE}.userID ;;
+    filters: [first_time_user: "no"]
+    label: "Returning Users"
+
+
   }
 
 
