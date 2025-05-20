@@ -69,7 +69,7 @@ from cte ;;
   }
   dimension: event_hit_count {
     type: number
-    sql: ${TABLE}.eventHitCount ;;
+    sql: ${TABLE}.eventhitcount ;;
   }
 
   dimension: session_id {
