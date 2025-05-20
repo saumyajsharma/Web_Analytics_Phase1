@@ -80,16 +80,6 @@ from cte ;;
     END ;;
   }
 
-
-  measure: Sessions {
-    type: count_distinct
-    sql: ${TABLE}.visitId ;;
-    filters: [event_hit_count: ">1"]
-  }
-
-
-
-
   dimension_group: begin_timestamp {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
@@ -241,21 +231,43 @@ from cte ;;
 
 
   measure: Visits {
-    type: number
-    sql: count(${TABLE}.visitID);;
+    type: count_distinct
+    sql: ${TABLE}.visitID ;;
   }
   measure: Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
   }
+  measure: Sessions {
+    type: count_distinct
+    sql: ${TABLE}.visitId ;;
+    filters: [event_hit_count: ">1"]
+  }
+  measure: Bounce_Sessions {
+    type: count_distinct
+    sql: ${TABLE}.visitId ;;
+    filters: [event_hit_count: "1", session_duration: "<15"]
+  }
+  measure: Bounce_Rate {
+    type: number
+    sql: CASE
+         WHEN ${Sessions} = 0 THEN NULL
+         ELSE SAFE_DIVIDE(${Bounce_Sessions}, ${Sessions})
+       END ;;
+    value_format_name: percent_2
+    label: "Bounce Rate"
+    description: "Percentage of sessions that resulted in a bounce (event_hit_count = 1 and session_duration < 15s)"
+  }
+
   measure: New_Users {
-    type: count
+    type: count_distinct
     filters: [first_time_user: "yes"]
   }
   measure: Returning_Users {
-    type: count
+    type: count_distinct
     filters: [first_time_user: "No"]
   }
+
 
   measure: Avg_Session_Duration {
     type: number
