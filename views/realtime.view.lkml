@@ -38,10 +38,10 @@ view: realtime {
     type: string
     sql: ${TABLE}.`Event name` ;;
   }
-  dimension_group: events_ts {
+  dimension_group: event_ts {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
-    sql: ${TABLE}.Events_ts ;;
+    sql: ${TABLE}.Event_ts ;;
   }
   dimension: firsttimeuser {
     type: yesno

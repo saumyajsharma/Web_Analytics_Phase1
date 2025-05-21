@@ -44,9 +44,12 @@ view: users {
     sql: ${TABLE}.last_activity_date ;;
   }
   dimension: new_user_flag {
-    type: yesno
+    type: "yesno"
     sql: ${TABLE}.new_user_flag ;;
+    group_label: "Session"
+    group_item_label: "First Time User"
   }
+
   dimension: num_engaged_sessions {
     type: number
     sql: ${TABLE}.num_engaged_sessions ;;
@@ -82,6 +85,21 @@ view: users {
   measure: Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
+  }
+  measure: New_Users {
+    type: count_distinct
+    sql: ${TABLE}.userID ;;
+    filters: [new_user_flag: "yes"]
+    label: "New Users"
+
+
+  }
+  measure: Returning_Users {
+    type: count_distinct
+    sql: ${TABLE}.userID ;;
+    filters: [new_user_flag: "no"]
+    label: "Returning Users"
+
   }
   measure: Avg_Engagement_Time {
     type: number

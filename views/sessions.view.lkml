@@ -1,46 +1,84 @@
 view: sessions {
 
   derived_table: {
-    sql: WITH cte AS (
-  SELECT
-    visitId,
-    COUNT(eventhitcount) AS ct
-  FROM `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema`
-  WHERE event_ts IS NOT NULL
-  GROUP BY visitId
-),
-visits AS (
-  SELECT
-    CASE WHEN cte.ct > 1 THEN cte.visitId ELSE NULL END AS sessionId,
-    sess.session_date, sess.customerId, sess.userId, sess.location,
-    sess.begin_timestamp, sess.end_timestamp, sess.session_duration,
-    sess.purchase_flag, sess.total_transaction_value,
-    sess.engaged_session_flag, sess.source, sess.medium,
-    sess.campaign, sess.content, sess.channel_grouping_id,
-    sess.firsttimeUser, sess.firstPage, sess.exit_page,
-    sess.device.browserversion, sess.device.deviceType,
-    sess.device.os, sess.device.osVersion,
-    sess.device.screenHeight, sess.device.screenwidth,
-    sess.device.browser,
-    sess.geo.country, sess.geo.region, sess.geo.city
-  FROM `uxlwqzc-cdip-sandbox-test.web_analytics.sessions` AS sess
-  LEFT JOIN cte ON cte.visitId = sess.visitId
-  WHERE sess.session_date IS NOT NULL
-)
-SELECT *
-FROM visits
-WHERE sessionId IS NOT NULL ;;
-  }
-  drill_fields: [session_id]
+    sql: with cte as (
+  select visitId,
+  date(max(event_ts)) as session_date,
+any_value(customerId) as customerId, -- customer_id
+any_value(userId) as userId, -- user_id
+any_value(geo.region) as location,
+any_value(eventhitcount) as eventhitcount,
+count(*) as num_events,
+min(event_ts) as begin_timestamp,
+max(event_ts) as end_timestamp,
+datetime_diff(max(event_ts) , min(event_ts),second) as session_duration,
+array_agg(eventName) as events,
+array_agg(distinct page.pageUrl) as pages
+,any_value(session.source) as source
+,any_value(session.medium) as medium
+,any_value(session.campaign ) as campaign
+,any_value(session.content ) as content
+,any_value(session.firstTimeUser) as firstTimeUser
+,any_value(session.firstPage) as firstPage
+,any_value(device.browser) as browser
+,any_value(device.browserversion) as browserversion
+,any_value(device.deviceType) as deviceType
+,any_value(device.os) as os
+,any_value(device.osVersion) as osVersion
+,any_value(device.screenHeight) as screenHeight
+,any_value(device.screenWidth) as screenWidth
+,any_value(geo.country) as country
+,any_value(geo.region) as region
+,any_value(geo.city) as city,
+max_by(page.pageName,event_ts) as exit_page
+from `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema`
+ where event_ts is not null
+ group by 1)
 
-  dimension: session_id {
+ select
+visitId,
+session_date,
+customerId,
+userID,
+location,
+eventhitcount,
+begin_timestamp,
+end_timestamp,
+timestamp_diff(end_timestamp, begin_timestamp, second) as session_duration,  --Avg session duration
+search(events,'purchase') as purchase_flag,  -- conversion rate
+0 as transaction_value,
+case when session_duration > 25 or array_length(pages) > 1 then 1 else 0 end as engaged_session_flag  -- engagement/bounce rate
+,source
+,medium
+,campaign
+,content
+,'' as channel_grouping_id,
+firstTimeUser,
+firstPage,
+exit_page
+,struct(browserversion,deviceType,os,osVersion,screenHeight,screenWidth,browser)
+,struct(country,region,city)
+from cte ;;
+  }
+  drill_fields: [visit_id]
+
+  dimension: visit_id {
     primary_key: yes
     type: string
-    sql: ${TABLE}.sessionId ;;
+    sql: ${TABLE}.visitId ;;
+  }
+  dimension: event_hit_count {
+    type: number
+    sql: ${TABLE}.eventhitcount ;;
   }
 
-
-
+  dimension: session_id {
+    type:  number
+    sql: CASE
+    WHEN ${event_hit_count} > 1 THEN ${visit_id}
+    ELSE NULL
+    END ;;
+  }
 
   dimension_group: begin_timestamp {
     type: time
@@ -192,22 +230,52 @@ WHERE sessionId IS NOT NULL ;;
   }
 
 
-  measure: Sessions {
-    type: number
-    sql: count(${TABLE}.sessionID);;
+  measure: Visits {
+    type: count_distinct
+    sql: ${TABLE}.visitID ;;
   }
   measure: Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
   }
+  measure: Sessions {
+    type: count_distinct
+    sql: ${TABLE}.visitId ;;
+    filters: [event_hit_count: ">1"]
+  }
+  measure: Bounce_Sessions {
+    type: count_distinct
+    sql: ${TABLE}.visitId ;;
+    filters: [event_hit_count: "1", session_duration: "<15"]
+  }
+  measure: Bounce_Rate {
+    type: number
+    sql: CASE
+         WHEN ${Sessions} = 0 THEN NULL
+         ELSE SAFE_DIVIDE(${Bounce_Sessions}, ${Sessions})
+       END ;;
+    value_format_name: percent_2
+    label: "Bounce Rate"
+    description: "Percentage of sessions that resulted in a bounce (event_hit_count = 1 and session_duration < 15s)"
+  }
+
   measure: New_Users {
-    type: count
-    filters: [first_time_user: "yes"]
+    type: count_distinct
+      sql: ${TABLE}.userID ;;
+      filters: [first_time_user: "yes"]
+      label: "New Users"
+
+
   }
   measure: Returning_Users {
-    type: count
-    filters: [first_time_user: "No"]
+    type: count_distinct
+    sql: ${TABLE}.userID ;;
+    filters: [first_time_user: "no"]
+    label: "Returning Users"
+
+
   }
+
 
   measure: Avg_Session_Duration {
     type: number
@@ -227,22 +295,22 @@ WHERE sessionId IS NOT NULL ;;
   measure: Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [session_id: "-NULL",session_date: "last 7 days"]
+    filters: [visit_id: "-NULL",session_date: "last 7 days"]
   }
   measure: Daily_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [session_id: "-NULL",session_date:"1 day ago for 1 day"]
+    filters: [visit_id: "-NULL",session_date:"1 day ago for 1 day"]
   }
   measure: Weekly_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [session_id: "-NULL",session_date: "7 days ago for 7 days"]
+    filters: [visit_id: "-NULL",session_date: "7 days ago for 7 days"]
   }
   measure: Monthly_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [session_id: "-NULL",session_date: "30 days ago for 30 days"]
+    filters: [visit_id: "-NULL",session_date: "30 days ago for 30 days"]
   }
   measure: User_Stickiness {
     type: number
