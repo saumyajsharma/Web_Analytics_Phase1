@@ -300,10 +300,42 @@ view: dynamicschema {
     type: number
     sql: round(avg(cast(${TABLE}.page.pageLoadTime as decimal))/60,2) ;;
   }
-
-
-
+  measure: bounces {
+    type: count_distinct
+    sql: CASE
+          WHEN (
+            SELECT COUNT(*)
+            FROM `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema` AS sub
+            WHERE sub.visitId = ${TABLE}.visitId
+            AND sub.event_ts IS NOT NULL
+          ) = 1
+          THEN ${TABLE}.visitId
+          ELSE NULL
+        END ;;
+    filters: [
+      event_ts_date : "NOT NULL"
+    ]
+    description: "Count of visits with exactly one event (bounces)."
+  }
+  measure: entries {
+    type: count_distinct
+    sql: ${visit_id} ;;
+    filters: [
+      event_name: "page_view",
+      event_hit_count: "1",
+      event_ts_date : "NOT NULL"
+    ]
+    group_label: "Entries Metrics"
+    description: "Count of visits where the first event is a page view."
+  }
+  measure: bounce_rate {
+    type: number
+    sql: SAFE_DIVIDE(${bounces}, ${entries}) ;;
+    value_format_name: percent_2
+    description: "Bounce rate calculated as Bounces divided by Entries, expressed as a percentage."
+  }
 }
+
 
 view: dynamicschema__user_properties {
 
