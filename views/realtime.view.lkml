@@ -24,19 +24,19 @@ view: realtime {
   }
   dimension: device_type {
     type: string
-    sql: ${TABLE}.`Device type` ;;
+    sql: ${TABLE}.Device_type` ;;
   }
   dimension: event_category {
     type: string
-    sql: ${TABLE}.`Event category` ;;
+    sql: ${TABLE}.Event_category ;;
   }
   dimension: event_id {
     type: string
-    sql: ${TABLE}.`Event id` ;;
+    sql: ${TABLE}.Event_id ;;
   }
   dimension: event_name {
     type: string
-    sql: ${TABLE}.`Event name` ;;
+    sql: ${TABLE}.Event_name ;;
   }
   dimension_group: event_ts {
     type: time
@@ -65,7 +65,7 @@ view: realtime {
   }
   dimension: operating_system {
     type: string
-    sql: ${TABLE}.`Operating system` ;;
+    sql: ${TABLE}.Operating_system ;;
   }
   dimension_group: page_load {
     type: time
@@ -74,11 +74,11 @@ view: realtime {
   }
   dimension: page_title {
     type: string
-    sql: ${TABLE}.`Page title` ;;
+    sql: ${TABLE}.Page_title ;;
   }
   dimension: page_url {
     type: string
-    sql: ${TABLE}.`page URL` ;;
+    sql: ${TABLE}.Page_URL ;;
   }
   dimension: region {
     type: string
@@ -118,6 +118,6 @@ view: realtime {
   }
   measure: pageview_count {
     type: number
-    sql: count((${TABLE}.pageUrl)) ;;
+    sql: count((${TABLE}.page_Url)) ;;
   }
 }
