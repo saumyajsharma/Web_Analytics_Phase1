@@ -71,7 +71,6 @@ from cte ;;
     type: number
     sql: ${TABLE}.eventhitcount ;;
   }
-
   dimension: session_id {
     type:  number
     sql: CASE
@@ -259,6 +258,10 @@ from cte ;;
     filters: [Bounce_Visit_Flag: "yes"]
     ##filters: [ session_duration: "<15"]
   }
+  # measure: Bounces {
+  #   type: number
+  #   sql: count(${is_bounce});;
+  # }
   measure: Bounce_Rate {
     type: number
     sql: CASE
