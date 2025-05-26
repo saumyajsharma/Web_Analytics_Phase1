@@ -263,7 +263,7 @@ from cte ;;
     type: number
     sql: CASE
         WHEN ${Sessions} = 0 THEN NULL
-        ELSE SAFE_DIVIDE(${Bounce_Sessions}, ${Sessions})
+        ELSE SAFE_DIVIDE(${Bounce_Sessions}, ${Visits})
       END ;;
     value_format_name: percent_2
     label: "Bounce Rate"
