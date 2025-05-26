@@ -243,17 +243,28 @@ from cte ;;
     sql: ${TABLE}.visitId ;;
     filters: [event_hit_count: ">1"]
   }
+
+  dimension: Bounce_Visit_Flag {
+    type: yesno
+    sql: (
+      SELECT COUNT(eventhitcount)
+      FROM web_analytics.sessions AS inner_sess
+      WHERE inner_sess.visitId = ${TABLE}.visitId and session_date is not null and visitId is not null
+    ) = 1 ;;
+  }
+
   measure: Bounce_Sessions {
     type: count_distinct
     sql: ${TABLE}.visitId ;;
-    filters: [event_hit_count: "1", session_duration: "<15"]
+    filters: [Bounce_Visit_Flag: "yes"]
+    ##filters: [ session_duration: "<15"]
   }
   measure: Bounce_Rate {
     type: number
     sql: CASE
-         WHEN ${Sessions} = 0 THEN NULL
-         ELSE SAFE_DIVIDE(${Bounce_Sessions}, ${Sessions})
-       END ;;
+        WHEN ${Sessions} = 0 THEN NULL
+        ELSE SAFE_DIVIDE(${Bounce_Sessions}, ${Sessions})
+      END ;;
     value_format_name: percent_2
     label: "Bounce Rate"
     description: "Percentage of sessions that resulted in a bounce (event_hit_count = 1 and session_duration < 15s)"
