@@ -300,7 +300,7 @@ from cte ;;
   measure: Daily_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [visit_id: "-NULL",session_date:"1 day ago for 1 day"]
+    filters: [visit_id: "-NULL",session_date:"today "]
   }
   measure: Weekly_Active_Users {
     type: count_distinct
@@ -310,14 +310,15 @@ from cte ;;
   measure: Monthly_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [visit_id: "-NULL",session_date: "30 days ago for 30 days"]
+    filters: [visit_id: "-NULL",session_date: "last 30 days"]
   }
   measure: User_Stickiness {
     type: number
     sql: round((${Daily_Active_Users}/NULLIF(${Monthly_Active_Users}, 0)),2) ;;
   }
   measure: Engaged_Sessions {
-    type: count
+    type: count_distinct
+    sql:  ${visit_id} ;;
     filters: [engaged_session_flag: "1"]
   }
   measure: Engaged_Sessions_Per_User {
