@@ -252,16 +252,13 @@ from cte ;;
     ) = 1 ;;
   }
 
+
   measure: Bounce_Sessions {
     type: count_distinct
     sql: ${TABLE}.visitId ;;
     filters: [Bounce_Visit_Flag: "yes"]
     ##filters: [ session_duration: "<15"]
   }
-  # measure: Bounces {
-  #   type: number
-  #   sql: count(${is_bounce});;
-  # }
   measure: Bounce_Rate {
     type: number
     sql: CASE
@@ -272,6 +269,12 @@ from cte ;;
     label: "Bounce Rate"
     description: "Percentage of sessions that resulted in a bounce (event_hit_count = 1 and session_duration < 15s)"
   }
+
+  # measure: Bounces {
+  #   type: number
+  #   sql: count(${is_bounce});;
+  # }
+
 
   measure: New_Users {
     type: count_distinct
