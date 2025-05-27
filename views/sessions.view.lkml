@@ -56,8 +56,8 @@ case when session_duration > 25 or array_length(pages) > 1 then 1 else 0 end as 
 firstTimeUser,
 firstPage,
 exit_page
-,struct(browserversion,deviceType,os,osVersion,screenHeight,screenWidth,browser)
-,struct(country,region,city)
+,struct(browserversion,deviceType,os,osVersion,screenHeight,screenWidth,browser) as device
+,struct(country,region,city) as geo
 from cte ;;
   }
   drill_fields: [visit_id]
@@ -113,43 +113,43 @@ from cte ;;
   }
   dimension: device__browser {
     type: string
-    sql: ${TABLE}.browser ;;
+    sql: ${TABLE}.device.browser ;;
     group_label: "Device"
     group_item_label: "Browser"
   }
   dimension: device__browserversion {
     type: string
-    sql: ${TABLE}.browserversion ;;
+    sql: ${TABLE}.device.browserversion ;;
     group_label: "Device"
     group_item_label: "Browserversion"
   }
   dimension: device__device_type {
     type: string
-    sql: ${TABLE}.deviceType ;;
+    sql: ${TABLE}.device.deviceType ;;
     group_label: "Device"
     group_item_label: "Device Type"
   }
   dimension: device__os {
     type: string
-    sql: ${TABLE}.os ;;
+    sql: ${TABLE}.device.os ;;
     group_label: "Device"
     group_item_label: "OS"
   }
   dimension: device__os_version {
     type: string
-    sql: ${TABLE}.osVersion ;;
+    sql: ${TABLE}.device.osVersion ;;
     group_label: "Device"
     group_item_label: "OS Version"
   }
   dimension: device__screen_height {
     type: number
-    sql: ${TABLE}.screenHeight ;;
+    sql: ${TABLE}.device.screenHeight ;;
     group_label: "Device"
     group_item_label: "Screen Height"
   }
   dimension: device__screen_width {
     type: number
-    sql: ${TABLE}.screenWidth ;;
+    sql: ${TABLE}.device.screenWidth ;;
     group_label: "Device"
     group_item_label: "Screen Width"
   }
@@ -168,20 +168,20 @@ from cte ;;
   }
   dimension: geo__city {
     type: string
-    sql: ${TABLE}.city ;;
+    sql: ${TABLE}.geo.city ;;
     group_label: "Geo"
     group_item_label: "City"
   }
   dimension: geo__country {
     type: string
     map_layer_name: countries
-    sql: ${TABLE}.country ;;
+    sql: ${TABLE}.geo.country ;;
     group_label: "Geo"
     group_item_label: "Country"
   }
   dimension: geo__region {
     type: string
-    sql: ${TABLE}.region ;;
+    sql: ${TABLE}.geo.region ;;
     group_label: "Geo"
     group_item_label: "Region"
   }
@@ -261,13 +261,10 @@ from cte ;;
   }
   measure: Bounce_Rate {
     type: number
-    sql: CASE
-        WHEN ${Sessions} = 0 THEN NULL
-        ELSE SAFE_DIVIDE(${Bounce_Sessions}, ${Visits})
-      END ;;
+    sql: SAFE_DIVIDE(${Bounce_Sessions}, ${Visits}) ;;
     value_format_name: percent_2
     label: "Bounce Rate"
-    description: "Percentage of sessions that resulted in a bounce (event_hit_count = 1 and session_duration < 15s)"
+
   }
 
   # measure: Bounces {
