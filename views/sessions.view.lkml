@@ -247,8 +247,8 @@ from cte ;;
     type: yesno
     sql: (
       SELECT COUNT(eventhitcount)
-      FROM web_analytics.sessions AS inner_sess
-      WHERE inner_sess.visitId = ${TABLE}.visitId and session_date is not null and visitId is not null
+      FROM web_analytics.dynamicschema AS inner_sess
+      WHERE inner_sess.visitId = ${TABLE}.visitId and event_ts is not null and visitId is not null
     ) = 1 ;;
   }
 
