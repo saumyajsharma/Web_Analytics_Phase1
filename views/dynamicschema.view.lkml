@@ -92,6 +92,12 @@ view: dynamicschema {
     timeframes: [raw, time, date, week, month, quarter, year, day_of_month, hour_of_day, minute]
     sql: ${TABLE}.event_ts ;;
   }
+  dimension_group: event_ts_ist {
+    type: time
+    timeframes: [raw, time, date, week, month, quarter, year, day_of_month, hour_of_day, minute]
+    sql: TIMESTAMP_ADD(${TABLE}.event_ts, INTERVAL 330 MINUTE) ;;
+    convert_tz: no
+  }
   dimension: event_day {
     type: date
     sql: ${event_ts_date} ;;
