@@ -306,40 +306,63 @@ view: dynamicschema {
     type: number
     sql: round(avg(cast(${TABLE}.page.pageLoadTime as decimal))/60,2) ;;
   }
-  measure: bounces {
-    type: count_distinct
-    sql: CASE
-          WHEN (
-            SELECT COUNT(*)
-            FROM `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema` AS sub
-            WHERE sub.visitId = ${TABLE}.visitId
-            AND sub.event_ts IS NOT NULL
-          ) = 1
-          THEN ${TABLE}.visitId
-          ELSE NULL
-        END ;;
-    filters: [
-      event_ts_date : "NOT NULL"
-    ]
-    description: "Count of visits with exactly one event (bounces)."
+  dimension: Bounce_Visit_Flag {
+    type: yesno
+    sql: (
+      SELECT COUNT(eventhitcount)
+      FROM web_analytics.dynamicschema AS inner_sess
+      WHERE inner_sess.visitId = ${TABLE}.visitId and event_ts is not null and visitId is not null
+    ) = 1 ;;
   }
-  measure: entries {
+
+
+  measure: Bounce_Sessions {
     type: count_distinct
-    sql: ${visit_id} ;;
-    filters: [
-      event_name: "page_view",
-      event_hit_count: "1",
-      event_ts_date : "NOT NULL"
-    ]
-    group_label: "Entries Metrics"
-    description: "Count of visits where the first event is a page view."
+    sql: ${TABLE}.visitId ;;
+    filters: [Bounce_Visit_Flag: "yes"]
+    ##filters: [ session_duration: "<15"]
   }
-  measure: bounce_rate {
+  measure: Bounce_Rate {
     type: number
-    sql: SAFE_DIVIDE(${bounces}, ${entries}) ;;
+    sql: SAFE_DIVIDE(${Bounce_Sessions}, ${Visits}) ;;
     value_format_name: percent_2
-    description: "Bounce rate calculated as Bounces divided by Entries, expressed as a percentage."
+    label: "Bounce Rate"
+
   }
+  # measure: bounces {
+  #   type: count_distinct
+  #   sql: CASE
+  #         WHEN (
+  #           SELECT COUNT(*)
+  #           FROM `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema` AS sub
+  #           WHERE sub.visitId = ${TABLE}.visitId
+  #           AND sub.event_ts IS NOT NULL
+  #         ) = 1
+  #         THEN ${TABLE}.visitId
+  #         ELSE NULL
+  #       END ;;
+  #   filters: [
+  #     event_ts_date : "NOT NULL"
+  #   ]
+  #   description: "Count of visits with exactly one event (bounces)."
+  # }
+  # measure: entries {
+  #   type: count_distinct
+  #   sql: ${visit_id} ;;
+  #   filters: [
+  #     event_name: "page_view",
+  #     event_hit_count: "1",
+  #     event_ts_date : "NOT NULL"
+  #   ]
+  #   group_label: "Entries Metrics"
+  #   description: "Count of visits where the first event is a page view."
+  # }
+  # measure: bounce_rate {
+  #   type: number
+  #   sql: SAFE_DIVIDE(${bounces}, ${entries}) ;;
+  #   value_format_name: percent_2
+  #   description: "Bounce rate calculated as Bounces divided by Entries, expressed as a percentage."
+  # }
 }
 
 
