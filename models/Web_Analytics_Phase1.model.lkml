@@ -117,7 +117,7 @@ explore: sessions {
   # Join date dimension on session_date
   join: date_dim {
     type: left_outer
-    sql_on: ${sessions.session_date} = ${date_dim.date_id} ;;
+    sql_on: ${sessions.Session_date} = ${date_dim.date_id} ;;
     relationship: many_to_one
   }
 

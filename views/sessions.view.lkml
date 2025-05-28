@@ -117,37 +117,37 @@ from cte ;;
     group_label: "Device"
     group_item_label: "Browser"
   }
-  dimension: device__browserversion {
+  dimension: Browser_Version {
     type: string
     sql: ${TABLE}.device.browserversion ;;
     group_label: "Device"
     group_item_label: "Browserversion"
   }
-  dimension: device__device_type {
+  dimension: Device_Type {
     type: string
     sql: ${TABLE}.device.deviceType ;;
     group_label: "Device"
     group_item_label: "Device Type"
   }
-  dimension: device__os {
+  dimension: OS {
     type: string
     sql: ${TABLE}.device.os ;;
     group_label: "Device"
     group_item_label: "OS"
   }
-  dimension: device__os_version {
+  dimension: OS_Version {
     type: string
     sql: ${TABLE}.device.osVersion ;;
     group_label: "Device"
     group_item_label: "OS Version"
   }
-  dimension: device__screen_height {
+  dimension: Screen_Height {
     type: number
     sql: ${TABLE}.device.screenHeight ;;
     group_label: "Device"
     group_item_label: "Screen Height"
   }
-  dimension: device__screen_width {
+  dimension: Screen_Width {
     type: number
     sql: ${TABLE}.device.screenWidth ;;
     group_label: "Device"
@@ -162,34 +162,34 @@ from cte ;;
     type: number
     sql: ${TABLE}.engaged_session_flag ;;
   }
-  dimension: exit_page {
+  dimension: Exit_Page {
     type: string
     sql: ${TABLE}.exit_page ;;
   }
-  dimension: geo__city {
+  dimension: City {
     type: string
     sql: ${TABLE}.geo.city ;;
     group_label: "Geo"
     group_item_label: "City"
   }
-  dimension: geo__country {
+  dimension: Country {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.geo.country ;;
     group_label: "Geo"
     group_item_label: "Country"
   }
-  dimension: geo__region {
+  dimension: Region {
     type: string
     sql: ${TABLE}.geo.region ;;
     group_label: "Geo"
     group_item_label: "Region"
   }
-  dimension: location {
+  dimension: Location {
     type: string
     sql: ${TABLE}.location ;;
   }
-  dimension: medium {
+  dimension: Medium {
     type: string
     sql: ${TABLE}.medium ;;
   }
@@ -198,18 +198,18 @@ from cte ;;
     type: yesno
     sql: ${TABLE}.purchase_flag ;;
   }
-  dimension_group: session {
+  dimension_group: Session {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
     datatype: date
     sql: ${TABLE}.session_date ;;
   }
-  dimension: session_duration {
+  dimension: Session_Duration {
     type: number
     sql: ${TABLE}.session_duration ;;
   }
-  dimension: source {
+  dimension: Source {
     type: string
     sql: ${TABLE}.source ;;
   }
@@ -293,7 +293,7 @@ from cte ;;
 
   measure: Avg_Session_Duration {
     type: number
-    sql: round((sum(${session_duration})/${Sessions})/60,2) ;;
+    sql: round((sum(${Session_Duration})/${Sessions})/60,2) ;;
   }
   measure: Avg_Session_Duration_min_secs {
     type: string
@@ -309,22 +309,22 @@ from cte ;;
   measure: Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [visit_id: "-NULL",session_date: "last 7 days"]
+    filters: [visit_id: "-NULL",Session_date:"last 7 days"]
   }
   measure: Daily_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [visit_id: "-NULL",session_date:"today "]
+    filters: [visit_id: "-NULL",Session_date:"today "]
   }
   measure: Weekly_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [visit_id: "-NULL",session_date: "7 days ago for 7 days"]
+    filters: [visit_id: "-NULL",Session_date: "7 days ago for 7 days"]
   }
   measure: Monthly_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [visit_id: "-NULL",session_date: "last 30 days"]
+    filters: [visit_id: "-NULL",Session_date: "last 30 days"]
   }
   measure: User_Stickiness {
     type: number

@@ -25,43 +25,43 @@ view: dynamicschema {
     type: string
     sql: ${TABLE}.customerId ;;
   }
-  dimension: browser {
+  dimension: Browser {
     type: string
     sql: ${TABLE}.device.browser ;;
     group_label: "Device"
     group_item_label: "Browser"
   }
-  dimension: browserversion {
+  dimension: Browser_Version {
     type: string
     sql: ${TABLE}.device.browserversion ;;
     group_label: "Device"
     group_item_label: "Browserversion"
   }
-  dimension: device_type {
+  dimension: Device_Type {
     type: string
     sql: ${TABLE}.device.deviceType ;;
     group_label: "Device"
     group_item_label: "Device Type"
   }
-  dimension: os {
+  dimension: OS {
     type: string
     sql: ${TABLE}.device.os ;;
     group_label: "Device"
     group_item_label: "OS"
   }
-  dimension: os_version {
+  dimension: OS_Version {
     type: string
     sql: ${TABLE}.device.osVersion ;;
     group_label: "Device"
     group_item_label: "OS Version"
   }
-  dimension: screen_height {
+  dimension: Screen_Height {
     type: number
     sql: ${TABLE}.device.screenHeight ;;
     group_label: "Device"
     group_item_label: "Screen Height"
   }
-  dimension: screen_width {
+  dimension: Screen_Width {
     type: number
     sql: ${TABLE}.device.screenWidth ;;
     group_label: "Device"
@@ -117,26 +117,26 @@ view: dynamicschema {
     type: string
     sql: ${TABLE}.gaClientId ;;
   }
-  dimension: city {
+  dimension: City {
     type: string
     sql: ${TABLE}.geo.city ;;
     group_label: "Geo"
     group_item_label: "City"
   }
-  dimension: country {
+  dimension: Country {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.geo.country ;;
     group_label: "Geo"
     group_item_label: "Country"
   }
-  dimension: region {
+  dimension: Region {
     type: string
     sql: ${TABLE}.geo.region ;;
     group_label: "Geo"
     group_item_label: "Region"
   }
-  dimension: location {
+  dimension: Location {
     type: string
     sql: ${TABLE}.location ;;
   }
