@@ -32,7 +32,7 @@ array_agg(distinct page.pageUrl) as pages
 ,any_value(geo.city) as city,
 max_by(page.pageName,event_ts) as exit_page
 from `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema`
- where event_ts is not null
+ where ingestion_ts is not null
  group by 1)
 
  select
@@ -248,7 +248,7 @@ from cte ;;
     sql: (
       SELECT COUNT(eventhitcount)
       FROM web_analytics.dynamicschema AS inner_sess
-      WHERE inner_sess.visitId = ${TABLE}.visitId and event_ts is not null and visitId is not null
+      WHERE inner_sess.visitId = ${TABLE}.visitId and ingestion_ts is not null and visitId is not null
     ) = 1 ;;
   }
 

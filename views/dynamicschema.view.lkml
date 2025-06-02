@@ -2,7 +2,7 @@
 
 view: dynamicschema {
   derived_table: {
-    sql: SELECT * FROM `web_analytics.dynamicschema`  WHERE event_ts IS NOT NULL ;;
+    sql: SELECT * FROM `web_analytics.dynamicschema`  WHERE ingestion_ts IS NOT NULL ;;
   }
 
   dimension: consents__purposes {
@@ -311,7 +311,7 @@ view: dynamicschema {
     sql: (
       SELECT COUNT(eventhitcount)
       FROM web_analytics.dynamicschema AS inner_sess
-      WHERE inner_sess.visitId = ${TABLE}.visitId and event_ts is not null and visitId is not null
+      WHERE inner_sess.visitId = ${TABLE}.visitId and ingestion_ts is not null and visitId is not null
     ) = 1 ;;
   }
 
