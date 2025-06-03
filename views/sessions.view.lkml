@@ -3,7 +3,7 @@ view: sessions {
   derived_table: {
     sql: with cte as (
   select visitId,
-  date(max(event_ts)) as session_date,
+  any_value(date(session.startTime)) as session_date,
 any_value(customerId) as customerId, -- customer_id
 any_value(userId) as userId, -- user_id
 any_value(geo.region) as location,
@@ -41,7 +41,7 @@ session_date,
 customerId,
 userID,
 location,
-eventhitcount,
+eventhitcount
 begin_timestamp,
 end_timestamp,
 timestamp_diff(end_timestamp, begin_timestamp, second) as session_duration,  --Avg session duration
@@ -56,8 +56,8 @@ case when session_duration > 25 or array_length(pages) > 1 then 1 else 0 end as 
 firstTimeUser,
 firstPage,
 exit_page
-,struct(browserversion,deviceType,os,osVersion,screenHeight,screenWidth,browser) as device
-,struct(country,region,city) as geo
+,struct(browserversion,deviceType,os,osVersion,screenHeight,screenWidth,browser)
+,struct(country,region,city)
 from cte ;;
   }
   drill_fields: [visit_id]
