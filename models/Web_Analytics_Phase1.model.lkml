@@ -49,6 +49,11 @@ explore: dynamicschema {
     sql: LEFT JOIN UNNEST(${dynamicschema.consents__purposes}) as dynamicschema__consents__purposes ;;
     relationship: one_to_many
   }
+  join: dynamicschema__page_properties {
+    view_label: "Dynamicschema: Pageproperties"
+    sql: LEFT JOIN UNNEST(${dynamicschema__page_properties.dynamicschema__page_properties}) as dynamicschema__page_properties ;;
+    relationship: one_to_many
+  }
 
   join: users {
     type: left_outer

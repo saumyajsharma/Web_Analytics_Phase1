@@ -444,3 +444,20 @@ view: dynamicschema__consents__purposes {
     sql: ${TABLE}.name ;;
   }
 }
+
+view: dynamicschema__page_properties {
+
+  dimension: dynamicschema__page_properties {
+    type: string
+    sql: dynamicschema__page_properties ;;
+  }
+  dimension: key {
+    type: string
+    sql: key ;;
+  }
+  dimension: value {
+    type: string
+    sql: value ;;
+  }
+
+}
