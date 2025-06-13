@@ -1,5 +1,3 @@
-# Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
-
 view: dynamicschema {
   derived_table: {
     sql: SELECT * FROM `web_analytics.dynamicschema`  WHERE ingestion_ts IS NOT NULL ;;
@@ -17,6 +15,7 @@ view: dynamicschema {
     group_item_label: "Status"
   }
   dimension: consents__vendors {
+
     sql: ${TABLE}.consents.vendors ;;
     group_label: "Consents"
     group_item_label: "Vendors"
@@ -25,7 +24,7 @@ view: dynamicschema {
     type: string
     sql: ${TABLE}.customerId ;;
   }
-  dimension: Browser {
+  dimension:  Browser {
     type: string
     sql: ${TABLE}.device.browser ;;
     group_label: "Device"
@@ -43,7 +42,7 @@ view: dynamicschema {
     group_label: "Device"
     group_item_label: "Device Type"
   }
-  dimension: OS {
+  dimension: OS{
     type: string
     sql: ${TABLE}.device.os ;;
     group_label: "Device"
@@ -89,7 +88,7 @@ view: dynamicschema {
   }
   dimension_group: event_ts {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year, day_of_month, hour_of_day, minute]
+    timeframes: [raw, time, date, week, month, quarter,  year, day_of_month, hour_of_day, minute]
     sql: ${TABLE}.event_ts ;;
   }
   dimension_group: event_ts_ist {
@@ -205,6 +204,9 @@ view: dynamicschema {
     group_label: "Page"
     group_item_label: "Page URL"
   }
+  dimension: page_properties {
+    sql: ${TABLE}.pageProperties ;;
+  }
   dimension: rd_user_id {
     type: string
     sql: ${TABLE}.rdUserId ;;
@@ -249,23 +251,20 @@ view: dynamicschema {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.session.startTime ;;
   }
-  dimension: visit_id {
-    type: string
-    # hidden: yes
-    sql: ${TABLE}.visitId ;;
-  }
 
 
   dimension: user_id {
     type: string
-    # hidden: yes
     sql: ${TABLE}.userId ;;
   }
   dimension: user_properties {
-    hidden: yes
+
     sql: ${TABLE}.userProperties ;;
   }
-
+  dimension: visit_id {
+    type: string
+    sql: ${TABLE}.visitId ;;
+  }
   measure: count {
     type: count
     drill_fields: [event_name, page_name, page_hostname, sessions.session_id, users.user_id]
@@ -365,13 +364,12 @@ view: dynamicschema {
   # }
 }
 
+view: dynamicschema__page_properties {
 
-view: dynamicschema__user_properties {
-
-  dimension: dynamicschema__user_properties {
+  dimension: dynamicschema__page_properties {
     type: string
     hidden: yes
-    sql: dynamicschema__user_properties ;;
+    sql: dynamicschema__page_properties ;;
   }
   dimension: key {
     type: string
@@ -384,11 +382,28 @@ view: dynamicschema__user_properties {
 
 }
 
+view: dynamicschema__user_properties {
+
+  dimension: dynamicschema__user_properties {
+    type: string
+
+    sql: dynamicschema__user_properties ;;
+  }
+  dimension: key {
+    type: string
+    sql: key ;;
+  }
+  dimension: value {
+    type: string
+    sql: value ;;
+  }
+}
+
 view: dynamicschema__event_properties {
 
   dimension: dynamicschema__event_properties {
     type: string
-    hidden: yes
+
     sql: dynamicschema__event_properties ;;
   }
   dimension: key {
@@ -399,7 +414,6 @@ view: dynamicschema__event_properties {
     type: string
     sql: value ;;
   }
-
 }
 
 view: dynamicschema__consents__vendors {
@@ -422,9 +436,6 @@ view: dynamicschema__consents__vendors {
     type: string
     sql: ${TABLE}.consents.vendors[SAFE_OFFSET(0)].name ;;
   }
-
-
-
 }
 
 view: dynamicschema__consents__purposes {
@@ -443,21 +454,4 @@ view: dynamicschema__consents__purposes {
     type: string
     sql: ${TABLE}.name ;;
   }
-}
-
-view: dynamicschema__page_properties {
-
-  dimension: dynamicschema__page_properties {
-    type: string
-    sql: dynamicschema__page_properties ;;
-  }
-  dimension: key {
-    type: string
-    sql: key ;;
-  }
-  dimension: value {
-    type: string
-    sql: value ;;
-  }
-
 }
