@@ -41,7 +41,7 @@ session_date,
 customerId,
 userID,
 location,
-eventhitcount
+eventhitcount,
 begin_timestamp,
 end_timestamp,
 timestamp_diff(end_timestamp, begin_timestamp, second) as session_duration,  --Avg session duration
