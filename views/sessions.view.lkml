@@ -29,8 +29,8 @@ array_agg(distinct page.pageUrl) as pages
 ,any_value(device.screenWidth) as screenWidth
 ,any_value(geo.country) as country
 ,any_value(geo.region) as region
-,any_value(geo.city) as city,
-max_by(page.pageName,event_ts) as exit_page
+,any_value(geo.city) as city
+,max_by(page.pageName,event_ts) as exit_page
 from `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema`
  where ingestion_ts is not null
  group by 1)
@@ -293,7 +293,7 @@ from cte ;;
 
   measure: Avg_Session_Duration {
     type: number
-    sql: round((sum(${Session_Duration})/${Sessions})/60,2) ;;
+    sql: round((sum(${Session_Duration})/${Sessions})/3600,2) ;;
   }
   measure: Avg_Session_Duration_min_secs {
     type: string
