@@ -56,8 +56,8 @@ case when session_duration > 25 or array_length(pages) > 1 then 1 else 0 end as 
 firstTimeUser,
 firstPage,
 exit_page
-,struct(browserversion,deviceType,os,osVersion,screenHeight,screenWidth,browser)
-,struct(country,region,city)
+,struct(browserversion,deviceType,os,osVersion,screenHeight,screenWidth,browser) as device
+,struct(country,region,city) as geo
 from cte ;;
   }
   drill_fields: [visit_id]
