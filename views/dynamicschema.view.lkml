@@ -368,14 +368,13 @@ view: dynamicschema__page_properties {
 
   dimension: dynamicschema__page_properties {
     type: string
-    hidden: yes
     sql: dynamicschema__page_properties ;;
   }
-  dimension: key {
+  dimension: custom_event {
     type: string
     sql: key ;;
   }
-  dimension: value {
+  dimension: custom_value {
     type: string
     sql: value ;;
   }
