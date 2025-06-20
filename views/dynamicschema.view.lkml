@@ -303,7 +303,7 @@ view: dynamicschema {
   }
   measure: Avg_Page_Load_Time {
     type: number
-    sql: round(avg(cast(${TABLE}.page.pageLoadTime as decimal))/3600,2) ;;
+    sql: round(avg(cast(${TABLE}.page.pageLoadTime as decimal))/60,2) ;;
   }
   dimension: Bounce_Visit_Flag {
     type: yesno
