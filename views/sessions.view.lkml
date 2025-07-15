@@ -293,7 +293,7 @@ from cte ;;
 
   measure: Avg_Session_Duration {
     type: number
-    sql: round((sum(${Session_Duration})/${Sessions})/3600,2) ;;
+    sql: round((sum(${Session_Duration})/${Sessions})/60,2) ;;
   }
   measure: Avg_Session_Duration_min_secs {
     type: string
@@ -319,7 +319,7 @@ from cte ;;
   measure: Weekly_Active_Users {
     type: count_distinct
     sql: ${TABLE}.userID ;;
-    filters: [visit_id: "-NULL",Session_date: "7 days ago for 7 days"]
+    filters: [visit_id: "-NULL",Session_date: "last 7 days"]
   }
   measure: Monthly_Active_Users {
     type: count_distinct

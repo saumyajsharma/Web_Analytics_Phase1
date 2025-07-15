@@ -102,7 +102,7 @@ view: realtime {
   }
   measure: Visits {
     type: number
-    sql: count(${TABLE}.visitId);;
+    sql: count(distinct ${TABLE}.visitId);;
   }
   measure: LoggedIn_Users {
     type: number
@@ -114,7 +114,7 @@ view: realtime {
   }
   measure: Event_Count {
     type: number
-    sql: count(${event_id});;
+    sql: count(distinct ${event_id});;
   }
   measure: pageview_count {
     type: number
