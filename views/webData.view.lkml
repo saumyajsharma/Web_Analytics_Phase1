@@ -1,6 +1,6 @@
-view: dynamicschema {
+view: webData {
   derived_table: {
-    sql: SELECT * FROM `web_analytics.dynamicschema`  WHERE ingestion_ts IS NOT NULL ;;
+    sql: SELECT * FROM `web_analytics.webData`  WHERE ingestion_ts IS NOT NULL ;;
   }
 
   dimension: consents__purposes {
@@ -309,7 +309,7 @@ view: dynamicschema {
     type: yesno
     sql: (
       SELECT COUNT(eventhitcount)
-      FROM web_analytics.dynamicschema AS inner_sess
+      FROM web_analytics.webData AS inner_sess
       WHERE inner_sess.visitId = ${TABLE}.visitId and ingestion_ts is not null and visitId is not null
     ) = 1 ;;
   }
@@ -333,7 +333,7 @@ view: dynamicschema {
   #   sql: CASE
   #         WHEN (
   #           SELECT COUNT(*)
-  #           FROM `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema` AS sub
+  #           FROM `uxlwqzc-cdip-sandbox-test.web_analytics.webData` AS sub
   #           WHERE sub.visitId = ${TABLE}.visitId
   #           AND sub.event_ts IS NOT NULL
   #         ) = 1
@@ -364,11 +364,11 @@ view: dynamicschema {
   # }
 }
 
-view: dynamicschema__page_properties {
+view: webData__page_properties {
 
-  dimension: dynamicschema__page_properties {
+  dimension: webData__page_properties {
     type: string
-    sql: dynamicschema__page_properties ;;
+    sql: webData__page_properties ;;
   }
   dimension: custom_event {
     type: string
@@ -381,12 +381,12 @@ view: dynamicschema__page_properties {
 
 }
 
-view: dynamicschema__user_properties {
+view: webData__user_properties {
 
-  dimension: dynamicschema__user_properties {
+  dimension: webData__user_properties {
     type: string
 
-    sql: dynamicschema__user_properties ;;
+    sql: webData__user_properties ;;
   }
   dimension: key {
     type: string
@@ -398,12 +398,12 @@ view: dynamicschema__user_properties {
   }
 }
 
-view: dynamicschema__event_properties {
+view: webData__event_properties {
 
-  dimension: dynamicschema__event_properties {
+  dimension: webData__event_properties {
     type: string
 
-    sql: dynamicschema__event_properties ;;
+    sql: webData__event_properties ;;
   }
   dimension: key {
     type: string
@@ -415,7 +415,7 @@ view: dynamicschema__event_properties {
   }
 }
 
-view: dynamicschema__consents__vendors {
+view: webData__consents__vendors {
   drill_fields: [id]
 
   dimension: id {
@@ -437,7 +437,7 @@ view: dynamicschema__consents__vendors {
   }
 }
 
-view: dynamicschema__consents__purposes {
+view: webData__consents__purposes {
   drill_fields: [id]
 
   dimension: id {

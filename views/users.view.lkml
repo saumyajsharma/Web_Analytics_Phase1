@@ -72,7 +72,7 @@ view: users {
   }
   measure: count {
     type: count
-    drill_fields: [user_id, dynamicschema.count, sessions.count]
+    drill_fields: [user_id, webData.count, sessions.count]
   }
   measure: Total_Users {
     type: number

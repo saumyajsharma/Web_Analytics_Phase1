@@ -28,37 +28,37 @@ persist_with: Web_Analytics_Phase1_default_datagroup
 # Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
 # Each joined view also needs to define a primary key.
 
-explore: dynamicschema {
-  join: dynamicschema__page_properties {
-    view_label: "Dynamicschema: Pageproperties"
-    sql: LEFT JOIN UNNEST(${dynamicschema.page_properties}) as dynamicschema__page_properties ;;
+explore: webData {
+  join: webData__page_properties {
+    view_label: "webData: Pageproperties"
+    sql: LEFT JOIN UNNEST(${webData.page_properties}) as webData__page_properties ;;
     relationship: one_to_many
   }
-  join: dynamicschema__user_properties {
-    view_label: "Dynamicschema: Userproperties"
-    sql: LEFT JOIN UNNEST(${dynamicschema.user_properties}) as dynamicschema__user_properties ;;
+  join: webData__user_properties {
+    view_label: "webData: Userproperties"
+    sql: LEFT JOIN UNNEST(${webData.user_properties}) as webData__user_properties ;;
     relationship: one_to_many
   }
-  join: dynamicschema__event_properties {
-    view_label: "Dynamicschema: Eventproperties"
-    sql: LEFT JOIN UNNEST(${dynamicschema.event_properties}) as dynamicschema__event_properties ;;
+  join: webData__event_properties {
+    view_label: "webData: Eventproperties"
+    sql: LEFT JOIN UNNEST(${webData.event_properties}) as webData__event_properties ;;
     relationship: one_to_many
   }
-  join: dynamicschema__consents__vendors {
-    view_label: "Dynamicschema: Consents Vendors"
-    sql: LEFT JOIN UNNEST(${dynamicschema.consents__vendors}) as dynamicschema__consents__vendors ;;
+  join: webData__consents__vendors {
+    view_label: "webData: Consents Vendors"
+    sql: LEFT JOIN UNNEST(${webData.consents__vendors}) as webData__consents__vendors ;;
     relationship: one_to_many
   }
-  join: dynamicschema__consents__purposes {
-    view_label: "Dynamicschema: Consents Purposes"
-    sql: LEFT JOIN UNNEST(${dynamicschema.consents__purposes}) as dynamicschema__consents__purposes ;;
+  join: webData__consents__purposes {
+    view_label: "webData: Consents Purposes"
+    sql: LEFT JOIN UNNEST(${webData.consents__purposes}) as webData_consents__purposes ;;
     relationship: one_to_many
   }
 
 
   join: users {
     type: left_outer
-    sql_on: ${dynamicschema.user_id} = ${users.user_id} ;;
+    sql_on: ${webData.user_id} = ${users.user_id} ;;
     relationship: many_to_one
   }
 }

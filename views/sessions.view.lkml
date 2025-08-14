@@ -31,7 +31,7 @@ array_agg(distinct page.pageUrl) as pages
 ,any_value(geo.region) as region
 ,any_value(geo.city) as city
 ,max_by(page.pageName,event_ts) as exit_page
-from `uxlwqzc-cdip-sandbox-test.web_analytics.dynamicschema`
+from `uxlwqzc-cdip-sandbox-test.web_analytics.webData`
  where ingestion_ts is not null
  group by 1)
 
@@ -225,7 +225,7 @@ from cte ;;
 
   measure: count {
     type: count
-    drill_fields: [session_id, users.user_id, dynamicschema.count]
+    drill_fields: [session_id, users.user_id,webData.count]
   }
 
 
@@ -247,7 +247,7 @@ from cte ;;
     type: yesno
     sql: (
       SELECT COUNT(eventhitcount)
-      FROM web_analytics.dynamicschema AS inner_sess
+      FROM web_analytics.webData AS inner_sess
       WHERE inner_sess.visitId = ${TABLE}.visitId and ingestion_ts is not null and visitId is not null
     ) = 1 ;;
   }
